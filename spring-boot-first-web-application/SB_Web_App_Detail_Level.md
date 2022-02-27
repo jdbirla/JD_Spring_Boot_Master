@@ -1,6 +1,6 @@
 # Spring Boot Web Application Detail Level
 
-## What You Will Learn during this Step 02:
+## What You Will Learn during this Step 01:
 - Lets create a simple web application using Spring Boot
 - Lets run the Spring Boot Application
 - There is a lot of magic happening in here! We will take a deep dive into the magic in Step 03. 
@@ -112,7 +112,7 @@ Spring Boot Starter Web
 Auto Configuration
 ```
 ---
-## What You Will Learn during this Step 03:
+## What You Will Learn during this Step 02:
 - @RequestMapping(value = "/login", method = RequestMethod.GET)
 - http://localhost:8080/login
 - Why @ResponseBody?
