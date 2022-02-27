@@ -235,5 +235,76 @@ public class SpringBootFirstWebApplication {
 
 ```
 logging.level.org.springframework.web: DEBUG
+
+```
+---
+
+## What You Will Learn during this Step 03:
+- Demystifying some of the magic
+ - Spring Boot Starter Parent
+ - Spring Boot Starter Web
+ - Embedded Tomcat
+ - Dev Tools
+
+<br>
+
+---
+ 
+ ## What You Will Learn during this Step 04:
+- Your First JSP
+- There is a bit of setup before we get there!
+- Introduction to View Resolver
+
+## Exercises
+- Create a new jsp and a new controller method to redirect to it!
+- Play around!
+
+
+## Useful Snippets and References
+First Snippet - /src/main/webapp/WEB-INF/jsp/login.jsp
+```html
+<html>
+<head>
+<title>Yahoo!!</title>
+</head>
+<body>
+My First JSP!!!
+</body>
+</html>
+```
+
+Second Snippet - /src/main/resources/application.properties
+```properties
+
+
+spring.mvc.view.prefix: /WEB-INF/jsp/
+spring.mvc.view.suffix: .jsp
+logging.level.: DEBUG
+```
+
+Third Snippet : To enable jsp support in embedded tomcat server!
+```xml
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+```
+
+Fourth Snippet : To enable jsp support in embedded tomcat server!
+```java
+
+@Controller
+public class LoginController {
+	
+	@RequestMapping(value = "/login")
+	public String sayHello()
+	{
+		return "login";
+	}
+
+}
+
 ```
 ---
