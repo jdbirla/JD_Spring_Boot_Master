@@ -129,3 +129,30 @@ public class LoginController {
 }
 
 ```
+## What You Will Learn during this Step 04:
+- You first GET Parameter.
+- Problem with using GET
+- Introducing @RequestParam String name, ModelMap model
+
+## Snippets
+```java
+@RequestMapping(value = "/login")
+	public String sayHello(@RequestParam String name, ModelMap map )
+	{
+		map.put("parama1", name);
+		return "login" ;
+	}
+```
+```html
+<html>
+<head>
+<title>Yahoo!!</title>
+</head>
+<body>
+My name is ${parama1}
+</body>
+</html>
+```
+## Output 
+
+

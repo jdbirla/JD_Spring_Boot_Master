@@ -3,6 +3,6 @@
 <title>Yahoo!!</title>
 </head>
 <body>
-My First JSP!!!
+My name is ${parama1}
 </body>
 </html>
