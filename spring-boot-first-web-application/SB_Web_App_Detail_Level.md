@@ -19,6 +19,7 @@ Spring Boot Starter Web
 @SpringBootApplication
 Auto Configuration
 ```
+---
 ## What You Will Learn during this Step 02:
 ### todo.txt
 
@@ -56,7 +57,7 @@ logging.level.org.springframework.web: DEBUG
 ```
 ### Exercises
 - Create another method with a different mapping returning some other text!
-
+---
 ## What You Will Learn during this Step 03:
 - Demystifying some of the magic
  - Spring Boot Starter Parent
@@ -64,6 +65,7 @@ logging.level.org.springframework.web: DEBUG
  - Embedded Tomcat
  - Dev Tools
 
+---
 
 ## What You Will Learn during this Step 04:
 - Your First JSP
@@ -129,12 +131,13 @@ public class LoginController {
 }
 
 ```
-## What You Will Learn during this Step 04:
+---
+## What You Will Learn during this Step 05:
 - You first GET Parameter.
 - Problem with using GET
 - Introducing @RequestParam String name, ModelMap model
 
-## Snippets
+### Snippets
 ```java
 @RequestMapping(value = "/login")
 	public String sayHello(@RequestParam String name, ModelMap map )
@@ -154,5 +157,6 @@ My name is ${parama1}
 </html>
 ```
 ## Output 
+![JDBIRLA](Images/SB_Name_Param.png)
 
 
