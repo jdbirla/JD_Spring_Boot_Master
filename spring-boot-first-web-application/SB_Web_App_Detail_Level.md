@@ -175,24 +175,6 @@ My name is ${parama1}
 
 ### MVC Flow
 ![MVC](Images/mvc.png)
-
----
-
-
-## What You Will Learn during this Step 06:
-- Understand importance of DispatcherServlet.
-
-### Spring MVC Request Flow
-- DispatcherServlet receives HTTP Request.
-- DispatcherServlet identifies the right Controller based on the URL.
-- Controller executes Business Logic.
-- Controller returns a) Model b) View Name Back to DispatcherServlet.
-- DispatcherServlet identifies the correct view (ViewResolver).
-- DispatcherServlet makes the model available to view and executes it.
-- DispatcherServlet returns HTTP Response Back.
-
-### MVC Flow
-![MVC](Images/mvc.png)
 ---
 ## What You Will Learn during this Step 07:
 - Lets get the name from the user in a form
