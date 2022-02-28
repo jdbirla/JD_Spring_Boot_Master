@@ -176,3 +176,73 @@ My name is ${parama1}
 ### MVC Flow
 ![MVC](Images/mvc.png)
 
+---
+
+
+## What You Will Learn during this Step 06:
+- Understand importance of DispatcherServlet.
+
+### Spring MVC Request Flow
+- DispatcherServlet receives HTTP Request.
+- DispatcherServlet identifies the right Controller based on the URL.
+- Controller executes Business Logic.
+- Controller returns a) Model b) View Name Back to DispatcherServlet.
+- DispatcherServlet identifies the correct view (ViewResolver).
+- DispatcherServlet makes the model available to view and executes it.
+- DispatcherServlet returns HTTP Response Back.
+
+### MVC Flow
+![MVC](Images/mvc.png)
+---
+## What You Will Learn during this Step 07:
+- Lets get the name from the user in a form
+- use get and post method
+- submit user data from post method and display
+
+### Useful Snippets and References
+```java
+@Controller
+public class LoginController {
+	
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public String showLoginPage(ModelMap model){
+		return "login";
+	}
+
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public String showWelcomePage(ModelMap model, @RequestParam String name){
+		model.put("name", name);
+		return "welcome";
+	}
+	
+}
+```
+* login.jsp
+```jsp
+<html>
+<head>
+<title>Yahoo!!</title>
+</head>
+
+<body>
+	<form method="Post">
+		Name : <input type="text" name="name" />
+		Password : <input type="password" name="password" /> 
+		<input type="submit" />
+	</form>
+</body>
+</html>
+```
+* Welcome.jsp
+```jsp 
+<html>
+<head>
+<title>Yahoo!!</title>
+</head>
+
+<body>
+	Welcome ${name}!!
+</body>
+</html>
+```
+---
