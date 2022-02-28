@@ -227,10 +227,8 @@ public class LoginController {
 </body>
 </html>
 ```
-
 ### Form submit
 ![MVC](Images/Form_Submit.png)
-
 ### Welcome page
 ![MVC](Images/welcome_Page.png)
 ---
