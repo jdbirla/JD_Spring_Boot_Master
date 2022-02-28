@@ -156,8 +156,10 @@ My name is ${parama1}
 </body>
 </html>
 ```
-## Output 
+### Output from Browser
 ![Browser](Images/SB_Name_Param.png)
+
+---
 
 ## What You Will Learn during this Step 06:
 - Understand importance of DispatcherServlet.
