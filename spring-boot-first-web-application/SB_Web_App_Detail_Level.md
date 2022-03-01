@@ -256,7 +256,7 @@ Search for a view named "login"
 ### Useful Snippets and References
 First Snippet
 
-*LoginController
+* LoginController
 ```java
 @RequestMapping(value="/login", method = RequestMethod.POST)
 	public String showWelcomePage(ModelMap model, @RequestParam String name , @RequestParam String password){
@@ -278,7 +278,7 @@ First Snippet
 ```jsp
 <font color="red">${errorMessage}</font>
 ```
-*LoginService
+* LoginService
 ```java
 @Component
 public class LoginService {
@@ -295,4 +295,9 @@ public class LoginService {
 
 }
 ```
+### Output
+#### Error page
+![MVC](Images/Error_message.png)
+#### Success page
+![MVC](Images/Success_Login.png)
 ---
