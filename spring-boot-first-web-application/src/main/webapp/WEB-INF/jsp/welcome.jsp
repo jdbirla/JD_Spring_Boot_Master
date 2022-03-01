@@ -4,6 +4,6 @@
 </head>
 
 <body>
-	Welcome ${name}!!
+	Welcome ${name} ${password}!!
 </body>
 </html>

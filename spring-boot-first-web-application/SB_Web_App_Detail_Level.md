@@ -232,4 +232,67 @@ public class LoginController {
 ### Welcome page
 ![MVC](Images/welcome_Page.png)
 ---
+## What You Will Learn during this Step 08:
+- Add validation for userid and password
+- Hard coded validation!!
 
+### todo.txt
+
+```
+Component, Service, Repository, Controller
+Autowired
+ComponentScan
+Spring Boot Starter Parent
+Spring Boot Starter Web
+@SpringBootApplication
+Auto Configuration
+Dispatcher Servlet
+/login => "login"
+"login" => src/main/webapp/WEB-INF/jsp/login.jsp 
+Search for a view named "login"
+/login => LoginController 
+```
+
+### Useful Snippets and References
+First Snippet
+
+*LoginController
+```java
+@RequestMapping(value="/login", method = RequestMethod.POST)
+	public String showWelcomePage(ModelMap model, @RequestParam String name , @RequestParam String password){
+		
+		boolean isValidUser = loginService.isValidUser(name, password);
+		
+		if(!isValidUser)
+		{
+			model.put("errorMessage", "Invalid Credentials !!!");
+			return "login";
+		}
+		
+		model.put("name", name);
+		model.put("password", password);
+		return "welcome";
+	}
+```
+* login.jsp
+```jsp
+<font color="red">${errorMessage}</font>
+```
+*LoginService
+```java
+@Component
+public class LoginService {
+	
+	public boolean isValidUser(String userName,String password )
+	{
+		boolean flag = false;
+
+		if (userName.equalsIgnoreCase("JD") && password.equalsIgnoreCase("Jitu"))
+			flag = true;
+
+		return flag;
+	}
+
+}
+```
+---
