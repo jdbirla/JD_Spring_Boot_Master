@@ -450,4 +450,76 @@ public class TodoController {
 	}
 ```
 ---
+## What You Will Learn during this Step 13:
+- Add Facility to add New Todo
+- todo.jsp
+- Importance of redirect:/list-todos
+
+Snippet
+
+*com.jd.springboot.web.controller.TodoController
+```Java
+@Controller
+@SessionAttributes("name")
+public class TodoController {
+	
+	@Autowired
+	TodoService todoService;
+	
+	@RequestMapping(value="/list-todos", method = RequestMethod.GET)
+	public String showLoginPage(ModelMap model){
+		String name = (String) model.get("name");
+		model.put("todos", todoService.retrieveTodos(name));
+		return "list-todos";
+	}
+	
+	@RequestMapping(value="/add-todo", method = RequestMethod.GET)
+	public String showAddTodoPage(ModelMap model){
+		return "todo";
+	}
+
+	@RequestMapping(value="/add-todo", method = RequestMethod.POST)
+	public String addTodo(ModelMap model, @RequestParam String desc){
+		todoService.addTodo((String) model.get("name"), desc, new Date(), false);
+		return "redirect:/list-todos";
+	}
+```
+* todo.jsp
+```
+<html>
+
+<head>
+<title>First Web Application</title>
+</head>
+
+<body>
+ADD Todo Page for ${name}
+
+<form method="post">
+	Description : <input name="desc" type="text"/> 
+	<input type="submit"/>	
+</form>
+
+</body>
+
+</html>
+```
+*  list-todos.jsp
+
+```
+<html>
+<head>
+<title>Yahoo!!</title>
+</head>
+<body>
+	Welcome ${name} for your to do ${todos}
+	
+	<BR/>
+	<h1> Your Name is : ${name} </h1>
+	<BR/>
+	<a href="/add-todo">Add a Todo</a> 
+</body>
+</html>
+```
+---
 

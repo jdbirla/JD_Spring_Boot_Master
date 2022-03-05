@@ -8,6 +8,7 @@
 	
 	<BR/>
 	<h1> Your Name is : ${name} </h1>
-	
+	<BR/>
+	<a href="/add-todo">Add a Todo</a> 
 </body>
 </html>
