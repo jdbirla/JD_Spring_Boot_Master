@@ -423,3 +423,31 @@ public class TodoService {
 ![MVC](Images/Architecure3.png)
 
 ---
+## What You Will Learn during this Step 12:
+- Session vs Model vs Request.
+- Be cautious about what you use Session for.
+- @SessionAttributes("name") and how it works?
+- Why use Model? "adding elements directly to the HttpServletRequest (as request attributes) would seem to serve the same purpose. The reason to do this is obvious when taking a look at one of the requirements we have set for the MVC framework: It should be as view-agnostic as possible, which means we’d like to be able to incorporate view technologies not bound to the HttpServletRequest as well." - Rod Johnson et. al’s book Professional Java Development with the Spring Framework
+- Spring documentation states that the @SessionAttributes annotation “list the names of model attributes which should be transparently stored in the session or some conversational storage.”
+
+## Useful Snippets and References
+
+* com.jd.springboot.web.controller.TodoController
+```Java
+@Controller
+@SessionAttributes("name")
+public class TodoController {
+	
+	@Autowired
+	TodoService todoService;
+	
+	@RequestMapping(value="/list-todos", method = RequestMethod.GET)
+	public String showLoginPage(ModelMap model){
+		String name = (String) model.get("name");
+		model.put("todos", todoService.retrieveTodos(name));
+		return "list-todos";
+	}
+	}
+```
+---
+
