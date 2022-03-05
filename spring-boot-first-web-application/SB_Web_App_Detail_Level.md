@@ -313,7 +313,7 @@ public class LoginService {
 - Create Todo Pojo
 - Create list-todos.jsp
 - Make TodoService a @Service and inject it
-- 
+- Changes in welcome.jsp 
 
 ### Snippets
 
@@ -327,7 +327,8 @@ public class Todo {
     private boolean isDone;
 
 ```
-```Java /spring-boot-first-web-application/src/main/java/com/jd/springboot/web/controller/TodoController.java
+* /spring-boot-first-web-application/src/main/java/com/jd/springboot/web/controller/TodoController.java
+```Java 
 @Controller
 public class TodoController {
 	
@@ -341,7 +342,8 @@ public class TodoController {
 	}
 }
 ```
-```java com.jd.springboot.web.service.TodoService (In memory data base)
+* com.jd.springboot.web.service.TodoService (In memory data base)
+```java 
 @Service
 public class TodoService {
     private static List<Todo> todos = new ArrayList<Todo>();
@@ -381,6 +383,7 @@ public class TodoService {
     }
 }
 ```
+* welcome.jsp
 ```welcome.jsp
 <html>
 <head>
@@ -392,6 +395,7 @@ public class TodoService {
 </body>
 </html>
 ```
+* list-todos.jsp
 ```list-todos.jsp
 <html>
 <head>
