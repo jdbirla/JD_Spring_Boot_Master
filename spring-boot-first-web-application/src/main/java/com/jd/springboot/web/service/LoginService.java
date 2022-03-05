@@ -1,4 +1,4 @@
-package com.jd.springboot.web.springbootfirstwebapplication.service;
+package com.jd.springboot.web.service;
 
 import org.springframework.stereotype.Component;
 
