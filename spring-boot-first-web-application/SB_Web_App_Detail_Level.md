@@ -407,3 +407,19 @@ public class TodoService {
 </body>
 </html>
 ```
+---
+## What You Will Learn during this Step 11:
+
+### What we will do:
+- Lets discuss about Architecture of web applications
+
+* High level Architecture
+![MVC](Images/Architecure1.png)
+
+* Web side options 
+![MVC](Images/Architecure2.png)
+
+* Spring Architecture 
+![MVC](Images/Architecure3.png)
+
+---
