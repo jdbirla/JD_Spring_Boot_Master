@@ -4,6 +4,6 @@
 </head>
 
 <body>
-	Welcome ${name} ${password}!!
+	Welcome ${name}!!  <a href="/list-todos">Click Here</a> for your To dos.
 </body>
 </html>
