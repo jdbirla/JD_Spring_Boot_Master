@@ -946,7 +946,7 @@ public class TodoController {
 - Add a navigation bar
 - Use JSP Fragments header,footer and navigation
 - Create folder under src/main/webapp/WEB-INF/jsp/common and three files footer.jspf,header.jspf,navigation.jspf
-## Useful Snippets
+### Useful Snippets
 * src/main/webapp/WEB-INF/jsp/common/footer.jspf
 
 ```
@@ -1081,5 +1081,47 @@ public class TodoController {
 </div>
 <%@ include file="common/footer.jspf"%>
 ```
+---
+## What You Will Learn during this Step 22:
+
+## What we will do:
+- Prepare for Using Spring Security
+- Remove All the Login Related Functionality
+- Make Welcome the default page - with some hardcoding to start with.
+- Refactor getLoggedInUserName
+- Update Home Page Link in navigation
+
+Code Snippet
+
+*com.jd.springboot.web.controller.LoginController put / for any URL redirect to welcome page
+```
+@Controller
+@SessionAttributes("name")
+public class LoginController {
+	
+	@Autowired
+	LoginService loginService;
+	
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public String showLoginPage(ModelMap model){
+		model.put("name", "JD");
+		return "welcome";
+	}
+	
+}
+```
+*com.jd.springboot.web.controller.TodoController remove repeated code and call private method
+
+```
+private String getLoggedInUserName(ModelMap model) {
+		return (String) model.get("name");
+	}
+```
+* navigation.jspf
+```
+ <li class="active"><a href="/">Home</a></li>
+```
+---
+
 
 
