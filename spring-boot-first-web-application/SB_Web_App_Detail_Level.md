@@ -781,8 +781,76 @@ ComponentScan
 </html>
 ```
 ---
+## What You Will Learn during this Step 19:
 
+### What we will do:
+- Add Update Functionality
+- Lets Use the Same JSP TODO.jsp as earlier.
 
+### todo.txt
+
+```
+Implementing Server Side Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command Bean or Form Backing Bean
+Add Validation
+Use Validation on Controller
+Display Errors in View
+Command Bean
+~~~~~~~~~~~~
+Controller
+View - Spring Form Tags
+LoginController -> adds name to model
+welcome.jsp -> shows ${name}
+TodoController -> redirects to list-todos.jsp
+${name} is empty 
+```
+* list-todos.jsp add update botton
+```
+<td><a type="button" class="btn btn-success"
+							href="/update-todo?id=${todo.id}">Update</a></td>
+```
+* com.jd.springboot.web.controller.TodoController  add two methods
+
+```java
+@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
+	public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
+		Todo todo = todoService.retrieveTodo(id);
+		model.put("todo", todo);
+		return "todo";
+	}
+
+	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)
+	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "todo";
+		}
+		
+		todo.setUser((String) model.get("name"));
+		
+		todoService.updateTodo(todo);
+
+		return "redirect:/list-todos";
+	}
+```
+* com.jd.springboot.web.service.TodoService added two methods
+```
+	public Todo retrieveTodo(int id) {
+		for (Todo todo : todos) {
+			if (todo.getId() == id) {
+				return todo;
+			}
+		}
+		return null;
+	}
+
+	public void updateTodo(Todo todo) {
+		todos.remove(todo);
+		todos.add(todo);
+	}
+```
+---
 
 
 

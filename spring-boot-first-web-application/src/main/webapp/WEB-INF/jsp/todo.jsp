@@ -18,7 +18,7 @@
 				<form:errors path="desc" cssClass="text-warning"/>
 			</fieldset>
 
-			<button type="submit" class="btn btn-success">Add</button>
+			<button type="submit" class="btn btn-success">Add/Update</button>
 		</form:form>
 		<div>
 			<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
