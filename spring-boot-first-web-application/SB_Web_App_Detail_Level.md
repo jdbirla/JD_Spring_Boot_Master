@@ -683,6 +683,105 @@ In this short step:
 
 </html>
 ```
+---
+## What You Will Learn during this Step 18:
+
+## What we will do:
+- Lets use a modelAttribute for Todo
+- Add Validations
+- The JSR 303 and JSR 349 defines specification for the Bean Validation API (version 1.0 and 1.1, respectively), and Hibernate Validator is the reference implementation.
+- org.hibernate:hibernate-validator
+
+### todo.txt
+
+```
+Implementing Server Side Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command Bean/modelAttribute or Form Backing Bean 
+Add Validation
+Use Validation on Controller
+Display Errors in View
+Command Bean
+~~~~~~~~~~~~
+Controller
+View - Spring Form Tags
+LoginController -> adds name to model
+welcome.jsp -> shows ${name}
+TodoController -> redirects to list-todos.jsp
+${name} is empty 
+Component, Service, Repository, Controller
+Autowired
+ComponentScan
+```
+## Useful Snippets
+* Pom.xml
+```Add dependency 
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+```	
+* com.jd.springboot.web.controller.TodoController	
+```java
+@RequestMapping(value="/add-todo", method = RequestMethod.GET)
+	public String showAddTodoPage(ModelMap model){
+		model.addAttribute("todo", new Todo(0, (String) model.get("name"), " ",
+				new Date(), false));
+		return "todo";
+	}
+
+	@RequestMapping(value="/add-todo", method = RequestMethod.POST)
+	public String addTodo(ModelMap model,  @Valid Todo todo , BindingResult result){
+		if(result.hasErrors()){
+			return "todo";	
+		}
+		todoService.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
+		return "redirect:/list-todos";
+	}
+```
+*com.jd.springboot.web.model.Todo
+
+```java
+ private int id;
+    private String user;
+    @Size(min=15, message="Enter at least 15 Characters...")
+    private String desc;
+    private Date targetDate;
+    private boolean isDone;
+```	
+* todo.jsp  Added spring tag lib and used form elements
+```
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<html>
+
+<head>
+<title>First Web Application</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+
+<body>
+<h2>Add your Description</h2> 
+	<div class="container">
+		<form:form method="post" modelAttribute="todo">
+			<fieldset class="form-group">
+				<form:label path="desc">Description</form:label> 
+				<form:input path="desc" type="text"
+					class="form-control" required="required"/>
+				<form:errors path="desc" cssClass="text-warning"/>
+			</fieldset>
+
+			<button type="submit" class="btn btn-success">Add</button>
+		</form:form>
+		<div>
+			<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+			<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+```
+---
+
 
 
 
