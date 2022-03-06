@@ -1180,4 +1180,244 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 }
 ```
 ---
+## What You Will Learn during this Step 24 and 25:
 
+### What we will do 24:
+- Remove Hardcoding of User Name
+- Remove LoginService
+- Rename LoginController to WelcomeController
+- Add Logout Functionality
+## What we will do 25:
+- Basic Exception Handling
+- Exception Handling is a cross cutting concern
+- Do not handle exceptions in Controllers or Services, if you cannot add value to them.
+- Bit of refactoring on the controllers
+- Whitelabel Error Page provided by default by Spring Boot
+ - You can see a few details of the errors
+- We can customize if we would want to
+- @ControllerAdvice and Controller Specific Exception Handling
+- Handling Errors thrown from Views
+
+### Useful Snippets 
+
+*com.jd.springboot.web.controller.ErrorController
+
+```java
+package com.jd.springboot.web.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller("error")
+public class ErrorController {
+	
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException
+		(HttpServletRequest request, Exception ex){
+		ModelAndView mv = new ModelAndView();
+
+		mv.addObject("exception", ex.getLocalizedMessage());
+		mv.addObject("url", request.getRequestURL());
+		
+		mv.setViewName("error");
+		return mv;
+	}
+
+}
+```
+
+*com.jd.springboot.web.controller.LogoutController
+
+```
+package com.jd.springboot.web.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class LogoutController {
+	
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String showWelcomPage(HttpServletRequest req , HttpServletResponse res){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null)
+		{
+			new SecurityContextLogoutHandler().logout(req, res, authentication);
+		}
+		return "redirect:/";
+	}
+	
+}
+
+```
+
+*com.jd.springboot.web.controller.WelcomeController  changing from loginController to WelcomeController
+
+```
+package com.jd.springboot.web.controller;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class WelcomeController {
+	
+	
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public String showWelcomPage(ModelMap model){
+		model.put("name", getLoggedinUserName());
+		return "welcome";
+	}
+	private String getLoggedinUserName()
+	{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal instanceof UserDetails)
+		{
+			return ((UserDetails) principal).getUsername();
+		}
+		return principal.toString();
+	}
+	
+}
+
+```
+
+*com.jd.springboot.web.security.SecurityConfiguration  for spring security
+
+```
+package com.jd.springboot.web.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+	//Create User - in28Minutes/dummy
+	@Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
+            throws Exception {
+		auth.inMemoryAuthentication()
+	    .passwordEncoder(passwordEncoder)
+	    .withUser("JD").password(passwordEncoder.encode("Jitu")).roles("USER")
+	    .and()
+	    .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
+	  }
+	@Autowired
+	  PasswordEncoder passwordEncoder;
+	
+	@Bean
+	  public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	  }
+	 
+	
+	@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/login").permitAll()
+                .antMatchers("/", "/*todo*/**").access("hasRole('USER')").and()
+                .formLogin();
+    }
+}
+```
+
+*navigation.jspf
+```
+<nav role="navigation" class="navbar navbar-default">
+	    <div class="">
+	        <a href="https://github.com/jdbirla/JD_Spring_Boot_Master" class="navbar-brand">JD_Repo</a>
+	    </div>
+	    <div class="navbar-collapse">
+	        <ul class="nav navbar-nav">
+	            <li class="active"><a href="/">Home</a></li>
+	            <li><a href="/list-todos">Todos</a></li>
+	        </ul>
+	        
+	        <ul class="nav navbar-nav navbar-right">
+	            <li><a href="/logout">Logout</a></li>
+	        </ul>
+	        
+	    </div>
+	</nav>
+```
+
+*error.jsp
+```
+<%@ include file="common/header.jspf"%>
+<%@ include file="common/navigation.jspf"%>
+<div class="container">
+	Sorry  ${name}!! We have some issues ,please contact GOD.
+</div>
+<%@ include file="common/footer.jspf"%>
+```
+*com.jd.springboot.web.controller.LogoutController
+```
+@Controller
+public class LogoutController {
+	
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String showWelcomPage(HttpServletRequest req , HttpServletResponse res){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null)
+		{
+			new SecurityContextLogoutHandler().logout(req, res, authentication);
+		}
+		return "redirect:/";
+	}
+	
+}
+```
+### todo.txt
+```
+Implementing Server Side Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command Bean or Form Backing Bean
+Add Validation
+Use Validation on Controller
+Display Errors in View
+Command Bean
+~~~~~~~~~~~~
+Controller
+View - Spring Form Tags
+LoginController -> adds name to model
+welcome.jsp -> shows ${name}
+TodoController -> redirects to list-todos.jsp
+${name} is empty 
+Component, Service, Repository, Controller
+Autowired
+ComponentScan
+Field dummyService in com.in28minutes.springboot.web.controller.LoginController 
+required a bean of type 'com.in28minutes.dummy.DummyService' 
+that could not be found.
+Spring Boot Starter Parent
+Spring Boot Starter Web
+@SpringBootApplication
+Auto Configuration
+Dispatcher Servlet
+/login => "login"
+"login" => src/main/webapp/WEB-INF/jsp/login.jsp 
+Search for a view named "login"
+/login => LoginController 
+```
+---

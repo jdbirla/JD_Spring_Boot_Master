@@ -1,15 +1,15 @@
 <%@ include file="common/header.jspf" %>
 <%@ include file="common/navigation.jspf" %>
 	<div class="container">
-		<table class="table table-striped">
+		<table class="table table-bordered table-striped table-hover table-condensed">
 			<caption>Your todos are</caption>
 			<thead>
 				<tr>
-					<th>Description</th>
-					<th>Target Date</th>
-					<th>Is it Done?</th>
-					<th>Update</th>
-					<th>Delete</th>
+					<th class="info">Description</th>
+					<th class="info">Target Date</th>
+					<th class="info">Is it Done?</th>
+					<th class="info">Update</th>
+					<th class="info">Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,7 +28,7 @@
 			</tbody>
 		</table>
 		<div>
-			<a class="button" href="/add-todo">Add a Todo</a>
+			<a class="btn btn-success" href="/add-todo">Add a Todo</a>
 		</div>
 
 		
