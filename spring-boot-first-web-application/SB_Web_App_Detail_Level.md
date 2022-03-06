@@ -1421,3 +1421,26 @@ Search for a view named "login"
 /login => LoginController 
 ```
 ---
+## Application running screens
+
+![Browser](Images/Screenshot_1.png)
+
+![Browser](Images/Screenshot_2.png)
+
+![Browser](Images/Screenshot_3.png)
+
+![Browser](Images/Screenshot_4.png)
+
+![Browser](Images/Screenshot_5.png)
+
+![Browser](Images/Screenshot_6.png)
+
+![Browser](Images/Screenshot_7.png)
+
+![Browser](Images/Screenshot_8.png)
+
+![Browser](Images/Screenshot_9.png)
+
+![Browser](Images/Screenshot_10.png)
+
+---
