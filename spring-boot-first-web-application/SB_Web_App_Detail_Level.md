@@ -851,6 +851,94 @@ ${name} is empty
 	}
 ```
 ---
+## What You Will Learn during this Step 20:
 
+### What we will do:
+- Make real use of the Target Date Field
+- initBinder method into todocontroller
+
+Code snipt
+
+*
+```pom.xml adding date picker dependency
+<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap-datepicker</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+```
+*com.jd.springboot.web.controller.TodoController adding InitBinder for date formate same across application
+```
+@Controller
+@SessionAttributes("name")
+public class TodoController {
+	
+	@Autowired
+	TodoService todoService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		// Date - dd/MM/yyyy
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
+	}
+```
+* list-todos.jsp adding jstl formate tag lib
+```
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy"/></td>
+```
+*todo.jsp adding new field targetDate and datepicker
+```
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<html>
+
+<head>
+<title>First Web Application</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+
+
+<body>
+	<h2>Add your Description</h2>
+	<div class="container">
+		<form:form method="post" modelAttribute="todo">
+			<form:hidden path="id" />
+			<fieldset class="form-group">
+				<form:label path="desc">Description</form:label>
+				<form:input path="desc" type="text" class="form-control"
+					required="required" />
+				<form:errors path="desc" cssClass="text-warning" />
+			</fieldset>
+
+			<fieldset class="form-group">
+				<form:label path="targetDate">Target Date</form:label>
+				<form:input path="targetDate" type="text" class="form-control"
+					required="required" />
+				<form:errors path="targetDate" cssClass="text-warning" />
+			</fieldset>
+
+			<button type="submit" class="btn btn-success">Add/Update</button>
+		</form:form>
+		<div>
+			<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+			<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+			<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<script
+				src="webjars/bootstrap-datepicker/1.0.1/js/bootstrap-datepicker.js"></script>
+			<script>
+				$('#targetDate').datepicker({
+					format : 'dd/mm/yyyy'
+				});
+			</script>
+</body>
+
+</html>
+```
+---
 
 
