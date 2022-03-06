@@ -739,7 +739,7 @@ ComponentScan
 		return "redirect:/list-todos";
 	}
 ```
-*com.jd.springboot.web.model.Todo
+* com.jd.springboot.web.model.Todo @Size(min=15, message="Enter at least 15 Characters...")
 
 ```java
  private int id;
@@ -859,15 +859,15 @@ ${name} is empty
 
 Code snipt
 
-*
-```pom.xml adding date picker dependency
+* adding date picker dependency 
+```pom.xml 
 <dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap-datepicker</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 ```
-*com.jd.springboot.web.controller.TodoController adding InitBinder for date formate same across application
+* com.jd.springboot.web.controller.TodoController adding InitBinder for date formate same across application
 ```
 @Controller
 @SessionAttributes("name")
@@ -890,7 +890,7 @@ public class TodoController {
 
 <td><fmt:formatDate value="${todo.targetDate}" pattern="dd/MM/yyyy"/></td>
 ```
-*todo.jsp adding new field targetDate and datepicker
+* todo.jsp adding new field targetDate and datepicker
 ```
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
