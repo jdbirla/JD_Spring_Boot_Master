@@ -623,6 +623,30 @@ ADD Todo Page for ${name}
 </html>
 ```
 ---
+## What You Will Learn during this Step 16:
+
+### What we will do:
+- Add functionality to delete a todo
+- Using bootstrap CSS classes 
+
+## Useful Snippets
+
+* com.jd.springboot.web.controller.TodoController
+```Java    
+	@RequestMapping(value="/delete-todo", method = RequestMethod.GET)
+	public String deleteTodo(@RequestParam int id){
+		todoService.deleteTodo(id);
+		return "redirect:/list-todos";
+	}
+```
+* Adding a delete button in list-todos.jsp
+```html
+<td><a type="button" class="btn btn-danger"
+							href="/delete-todo?id=${todo.id}">Delete</a></td>
+
+```
+---
+
 
 
 
