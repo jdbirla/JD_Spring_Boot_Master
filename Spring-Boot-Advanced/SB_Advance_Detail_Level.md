@@ -144,7 +144,7 @@ public class WelcomeService {
 - We already added this starter in the first step! Now we will explore the features it provides
 - We will enable logging in DEBUG mode to understand further
 
-###spring-boot-starter-web
+### spring-boot-starter-web
 - Spring Boot Starter Web brings all dependencies needed to build normal and RESTful web applications. Look at the dependency tree. 
 - All the dependencies are added in because of spring-boot-starter-web
 - Also look at /META-INF/spring.provides inside the spring-boot-starter-web.jar
