@@ -19,7 +19,7 @@ public class SurveyService {
 				"Largest Country in the World", "Russia", Arrays.asList(
 						"India", "Russia", "United States", "China"));
 		Question question2 = new Question("Question2",
-				"Most Populus Country in the World", "China", Arrays.asList(
+				"Most Populus Country in the World", "India", Arrays.asList(
 						"India", "Russia", "United States", "China"));
 		Question question3 = new Question("Question3",
 				"Highest GDP in the World", "United States", Arrays.asList(
