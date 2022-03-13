@@ -590,3 +590,56 @@ First Snippet
         </dependency>
 ```
 ---
+## What You Will Learn during this Step 10:
+- Create a REST Service to add a new question to survey
+ - @PostMapping("/surveys/{surveyId}/questions")
+ - @RequestBody Question question
+ - What should be Response Status for create?
+ - ResponseEntity.created(location).build()
+ - ResponseEntity.noContent().build()
+ - Using Postman : https://www.getpostman.com
+ - URL to POST to - http://localhost:8080/surveys/Survey1/questions
+
+## Useful Snippets and References
+
+Sample Body for POST Request
+
+```json
+{"description":"Second Most Populous Country in the World",
+"correctAnswer":"India",
+"options":["India","Russia","United States","China"]}
+```
+
+First Snippet
+
+* com.jd.springboot.controller.SurveyController add method addQuestionToSurvey
+```
+    // /surveys/{surveyId}/questions
+	@PostMapping("/surveys/{surveyId}/questions")
+	public ResponseEntity<Void> addQuestionToSurvey(@PathVariable String surveyId, @RequestBody Question newQuestion) {
+
+		Question question = surveyService.addQuestion(surveyId, newQuestion);
+
+		if (question == null)
+			return ResponseEntity.noContent().build();
+
+		// Success - URI of the new resource in Response Header
+		// Status - created
+		// URI -> /surveys/{surveyId}/questions/{questionId}
+		// question.getQuestionId()
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(question.getId())
+				.toUri();
+
+		// Status
+		return ResponseEntity.created(location).build();
+	}
+
+```
+### how to use postman
+
+![Browser](Images/Screenshot_01.png)
+
+![Browser](Images/Screenshot_02.png)
+
+---
+
