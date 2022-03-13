@@ -144,7 +144,7 @@ public class WelcomeService {
 - We already added this starter in the first step! Now we will explore the features it provides
 - We will enable logging in DEBUG mode to understand further
 
-##spring-boot-starter-web
+###spring-boot-starter-web
 - Spring Boot Starter Web brings all dependencies needed to build normal and RESTful web applications. Look at the dependency tree. 
 - All the dependencies are added in because of spring-boot-starter-web
 - Also look at /META-INF/spring.provides inside the spring-boot-starter-web.jar
@@ -155,9 +155,38 @@ public class WelcomeService {
 - Look at package org.springframework.boot.autoconfigure.web in spring-boot-autoconfigure-*.jar
 - Go to url http://localhost:8080/some-non-existing-url
 
-## Useful Snippets
+### Useful Snippets
 /src/main/resources/application.properties
 ```
 logging.level.org.springframework: DEBUG
+```
+---
+## What You Will Learn during this Step 04:
+- Understand Starter Parent
+- How to override things defined in Starter Parent
+- Other starter projects
+
+### Starter Parent
+- Dependency Versions
+- Java Versions
+- Default Plugins
+
+### Other Starter Projects
+- spring-boot-starter-web-services
+- spring-boot-starter-test
+- spring-boot-starter-jdbc
+- spring-boot-starter-security
+- spring-boot-starter-data-jpa
+- spring-boot-starter-data-rest
+- More at https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter
+
+### Useful Snippets and References
+First Snippet
+```
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.1.RELEASE</version>
+    </parent>
 ```
 ---
