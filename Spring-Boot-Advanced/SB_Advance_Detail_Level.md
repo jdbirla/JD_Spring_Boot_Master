@@ -239,11 +239,308 @@ First Snippet
 - Does not generate code
 
 ---
-## What You Will Learn during this Step 05:
+## What You Will Learn during this Step 06:
 - We want to prepare for creating a Rest Service 
 - Survey
 - Question
 - SurveyService
 - We use hard-coded data to get started
 
+---
+## What You Will Learn during this Step 07:
+- Create a REST Service for Retrieving all questions for a survey
+- Autowire SurveyService
+- Create @GetMapping("/surveys/{surveyId}/questions")
+- Use @PathVariable String surveyId
+- http://localhost:8080/surveys/Survey1/questions/
+- How does the Bean get converted to a JSON?
+- Auto Configuration : If Jackson jar is on the class path, message converters are auto created! (Search in log :Creating shared instance of singleton bean 'mappingJackson2HttpMessageConverter')
+
+### Some Theory
+- What is REST?
+- Architectural style for the web. REST specifies a set of constraints.
+- Client - Server : Server (service provider) should be different from a client (service consumer). 
+- Enables loose coupling and independent evolution of server and client as new technologies emerge. 
+- Each service should be stateless.
+- Each Resource has a resource identifier.
+- It should be possible to cache response.
+- Consumer of the service may not have a direct connection to the Service Provider. Response might be sent from a middle layer cache.
+- A resource can have multiple representations. Resource can modified through a message in any of the these representations.
+   
+## Useful Snippets and References
+- JSON View : https://jsonview.com/
+
+code Snippet
+
+* com.jd.springboot.controller.SurveyController
+
+```java
+package com.jd.springboot.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jd.springboot.model.Question;
+import com.jd.springboot.service.SurveyService;
+
+@RestController
+class SurveyController {
+	@Autowired
+	private SurveyService surveyService;
+
+	@GetMapping("/surveys/{surveyId}/questions")
+	public List<Question> retrieveQuestions(@PathVariable String surveyId) {
+		return surveyService.retrieveQuestions(surveyId);
+	}
+}
+```
+* com.jd.springboot.model.Question
+```java
+package com.jd.springboot.model;
+
+import java.util.List;
+
+public class Question {
+	private String id;
+	private String description;
+	private String correctAnswer;
+	private List<String> options;
+
+	// Needed by Caused by: com.fasterxml.jackson.databind.JsonMappingException:
+	// Can not construct instance of com.jd.springboot.model.Question:
+	// no suitable constructor found, can not deserialize from Object value
+	// (missing default constructor or creator, or perhaps need to add/enable
+	// type information?)
+	public Question() {
+
+	}
+
+	public Question(String id, String description, String correctAnswer,
+			List<String> options) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.correctAnswer = correctAnswer;
+		this.options = options;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getCorrectAnswer() {
+		return correctAnswer;
+	}
+
+	public List<String> getOptions() {
+		return options;
+	}
+
+	@Override
+	public String toString() {
+		return String
+				.format("Question [id=%s, description=%s, correctAnswer=%s, options=%s]",
+						id, description, correctAnswer, options);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+}
+```
+
+* com.jd.springboot.model.Survey
+```java
+package com.jd.springboot.model;
+
+import java.util.List;
+
+public class Survey {
+	private String id;
+	private String title;
+	private String description;
+	private List<Question> questions;
+
+	public Survey(String id, String title, String description,
+			List<Question> questions) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.questions = questions;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+
+	@Override
+	public String toString() {
+		return "Survey [id=" + id + ", title=" + title + ", description="
+				+ description + ", questions=" + questions + "]";
+	}
+
+}
+```
+
+* com.jd.springboot.service.SurveyService
+```java
+package com.jd.springboot.service;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.jd.springboot.model.Question;
+import com.jd.springboot.model.Survey;
+
+@Component
+public class SurveyService {
+	private static List<Survey> surveys = new ArrayList<>();
+	static {
+		Question question1 = new Question("Question1",
+				"Largest Country in the World", "Russia", Arrays.asList(
+						"India", "Russia", "United States", "China"));
+		Question question2 = new Question("Question2",
+				"Most Populus Country in the World", "China", Arrays.asList(
+						"India", "Russia", "United States", "China"));
+		Question question3 = new Question("Question3",
+				"Highest GDP in the World", "United States", Arrays.asList(
+						"India", "Russia", "United States", "China"));
+		Question question4 = new Question("Question4",
+				"Second largest english speaking country", "India", Arrays
+						.asList("India", "Russia", "United States", "China"));
+
+		List<Question> questions = new ArrayList<>(Arrays.asList(question1,
+				question2, question3, question4));
+
+		Survey survey = new Survey("Survey1", "My Favorite Survey",
+				"Description of the Survey", questions);
+
+		surveys.add(survey);
+	}
+
+	public List<Survey> retrieveAllSurveys() {
+		return surveys;
+	}
+
+	public Survey retrieveSurvey(String surveyId) {
+		for (Survey survey : surveys) {
+			if (survey.getId().equals(surveyId)) {
+				return survey;
+			}
+		}
+		return null;
+	}
+
+	public List<Question> retrieveQuestions(String surveyId) {
+		Survey survey = retrieveSurvey(surveyId);
+
+		if (survey == null) {
+			return null;
+		}
+
+		return survey.getQuestions();
+	}
+
+	public Question retrieveQuestion(String surveyId, String questionId) {
+		Survey survey = retrieveSurvey(surveyId);
+
+		if (survey == null) {
+			return null;
+		}
+
+		for (Question question : survey.getQuestions()) {
+			if (question.getId().equals(questionId)) {
+				return question;
+			}
+		}
+
+		return null;
+	}
+
+	private SecureRandom random = new SecureRandom();
+
+	public Question addQuestion(String surveyId, Question question) {
+		Survey survey = retrieveSurvey(surveyId);
+
+		if (survey == null) {
+			return null;
+		}
+
+		String randomId = new BigInteger(130, random).toString(32);
+		question.setId(randomId);
+
+		survey.getQuestions().add(question);
+
+		return question;
+	}
+}
+```
 ---
