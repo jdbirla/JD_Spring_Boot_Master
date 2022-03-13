@@ -239,3 +239,11 @@ First Snippet
 - Does not generate code
 
 ---
+## What You Will Learn during this Step 05:
+- We want to prepare for creating a Rest Service 
+- Survey
+- Question
+- SurveyService
+- We use hard-coded data to get started
+
+---

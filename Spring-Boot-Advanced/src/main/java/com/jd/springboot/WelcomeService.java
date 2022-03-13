@@ -1,4 +1,4 @@
-package com.jd.service;
+package com.jd.springboot;
 
 import org.springframework.stereotype.Component;
 
