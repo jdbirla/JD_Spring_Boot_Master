@@ -642,4 +642,70 @@ First Snippet
 ![Browser](Images/Screenshot_02.png)
 
 ---
+## What You Will Learn during this Step 11:
+- Understand Content Negotiation
+- Accept:application/xml
+- Deliver XML Responses from the REST Services
+- http://localhost:8080/surveys/Survey1/questions/
+
+## Useful Snippets and References
+First Snippet
+
+* Pom.xml add dependency for xml converter
+```
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+```
+
+- How to use post tool for xml
+- GET request for application/json set request header Key = "Accept" --> Value = "application/json"
+
+![Browser](Images/Screenshot_03.png)
+
+- GET request for application/json set request header Key = "Accept" --> Value = "application/json"
+
+![Browser](Images/Screenshot_04.png)
+
+- POST request for application/json set request header Key = "Content-Type" --> Value = "application/json"
+   and body choose Json and put body contant
+   ```
+	 {"description":"Second Most Populous Country in the World",
+	"correctAnswer":"Khamkheda",
+	"options":["India","Russia","United States","China"]}
+   ```
+![Browser](Images/Screenshot_05.png)
+
+![Browser](Images/Screenshot_06.png)
+
+![Browser](Images/Screenshot_07.png)
+
+![Browser](Images/Screenshot_08.png)
+
+
+- POST request for application/xml set request header Key = "Content-Type" --> Value = "application/xml"
+   and body choose xml and put body contant
+   ```
+	<Question>
+    <description>Largest Country in the World</description>
+    <correctAnswer>Tokyo</correctAnswer>
+    <options>
+        <options>India</options>
+        <options>Russia</options>
+        <options>United States</options>
+        <options>China</options>
+    </options>
+   </Question>
+   ```
+![Browser](Images/Screenshot_09.png)
+
+![Browser](Images/Screenshot_10.png)
+
+![Browser](Images/Screenshot_11.png)
+
+![Browser](Images/Screenshot_12.png)
+
+---
+
 
