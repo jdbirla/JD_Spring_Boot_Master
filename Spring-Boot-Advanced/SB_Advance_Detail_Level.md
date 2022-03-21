@@ -712,6 +712,35 @@ First Snippet
 - https://start.spring.io
 - Create a few projects!
 ---
+## What You Will Learn during this Step:12
+- Spring Boot Actuator
+- /env, /metrics, /trace, /dump, /shutdown, /beans, / autoconfig, /configprops, /mappings 
+- HAL Browser
+- http://localhost:8080/actuator/
+- Execute individual REST Services for each of above
+- Programming Tip
+- Use static code analysis - https://www.youtube.com/watch?v=rB_BaftN3nE
 
+* Pom.xml add dependency for actuator and hal-browser and hal-explorer
+```
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+      
+		 <dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency> 
+		<!-- This new dependency -->
+		<!-- <dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-explorer</artifactId>
+		</dependency> -->
+		
+```
+* Out put
+![Browser](Images/Screenshot_13.png)
 
+---
