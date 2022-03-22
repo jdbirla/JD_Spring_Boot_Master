@@ -707,12 +707,12 @@ First Snippet
 ![Browser](Images/Screenshot_12.png)
 
 ---
-## What You Will Learn during this Step 11:
+## What You Will Learn during this Step 12:
 - Spring Initializr
 - https://start.spring.io
 - Create a few projects!
 ---
-## What You Will Learn during this Step:12
+## What You Will Learn during this Step:13
 - Spring Boot Actuator
 - /env, /metrics, /trace, /dump, /shutdown, /beans, / autoconfig, /configprops, /mappings 
 - HAL Browser
@@ -743,4 +743,39 @@ First Snippet
 * Out put
 ![Browser](Images/Screenshot_13.png)
 
+---
+## What You Will Learn during this Step:14
+- Embedded servlet containers
+- Default Tomcat
+- We did not install Tomcat. Did we? Magic is done by Spring Boot!
+- Switching to Jetty or Undertow
+- Configuration
+- server.port
+- Programming Tip
+- Always review code : https://www.youtube.com/watch?v=hVJGu0xdXII
+- How to add undertow : Find out from documentation (
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-web-servers.html) how to switch to undertow!
+
+## Useful Snippets and References
+First Snippet
+
+* Pom.xml exclue dependency of tomcate and include jetty
+
+```
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>
+		
+```
 ---
