@@ -779,3 +779,50 @@ First Snippet
 		
 ```
 ---
+## What You Will Learn during this Step:15
+- Using Dynamic Configuration in your application
+- Customize Welcome Message
+- Different ways of configuration
+- --welcome.message="SomethingElse" in Program Arguments
+- --spring.config.location=classpath:/default.properties
+- We will learn about profiles in next step
+- Using Placeholders
+- YAML
+
+## Snippets
+First Snippet
+
+* application.properties
+```properties
+logging.level.org.springframework: INFO
+app.name=JD App v.1
+#welcome.message=Welcome message from properties files ${app.name}
+
+```
+Input 
+![Browser](Images/Screenshot_14.png)
+
+Output
+![Browser](Images/Screenshot_15.png)
+
+- We can give program arguments also for the same , it will override properties file values
+
+Input 
+![Browser](Images/Screenshot_16.png)
+
+Output
+![Browser](Images/Screenshot_17.png)
+
+- We can use YAML file instead of properties files
+- If we same key in properties and YAML then properties take hig priority 
+
+* application.yaml
+```properties
+logging:
+ level:
+   org.springframework: INFO
+   org.springframework.web.servlet: DEBUG
+welcome:
+    message: Welcome to your first Spring Boot app!
+```
+---
