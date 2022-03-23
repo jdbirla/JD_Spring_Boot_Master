@@ -829,13 +829,13 @@ welcome:
 ## What You Will Learn during this Step:16
 - Understand Basics of Profiles
 - Setting a profile
-	 - Using -Dspring.profiles.active=prod in VM Arguments
-	 - spring.profiles.active=prod  (in properties file)
+	  - Using -Dspring.profiles.active=prod in VM Arguments
+	  - spring.profiles.active=prod  (in properties file)
 - Using a profile
-	 - application-{profile-name}.properties
-	 - @Profile("dev") on a bean
+	  - application-{profile-name}.properties
+	  - @Profile("dev") on a bean
 - Usage
-	- Configure Resources - Databases, Queues, External Services
+	 - Configure Resources - Databases, Queues, External Services
 	
 - src/main/resource
 
@@ -869,4 +869,125 @@ Input
 Output
 ![Browser](Images/Screenshot_19.png)
 
+---
+## What You Will Learn during this Step:17
+- Even better configuration management than @Value
+- Type-safe Configuration Properties
+- http://localhost:8080/dynamic-configuration
+- Also look at http://localhost:8080/actuator/#http://localhost:8080/configprops
+
+* /first-springboot-project/src/main/java/com/jd/springboot/configuration/BasicConfiguration.java
+```java
+package com.jd.springboot.configuration;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties("basic")
+public class BasicConfiguration {
+    private boolean value;
+    private String message;
+    private int number;
+
+    public boolean isValue() {
+        return value;
+    }
+
+    public void setValue(boolean value) {
+        this.value = value;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+}
+
+```
+* /first-springboot-project/src/main/java/com/jd/springboot/WelcomeController.java
+```
+package com.jd.springboot;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jd.springboot.configuration.BasicConfiguration;
+
+@RestController
+public class WelcomeController {
+
+	//Auto wiring
+	@Autowired
+	private WelcomeService service;
+	@Autowired
+	private BasicConfiguration configuration;
+	
+	@RequestMapping("/welcome")
+	public String welcome() {
+		return service.retrieveWelcomeMessage();
+	}
+	
+	@RequestMapping("/dynamic-configuration")
+	public Map dynamicConfiguration() {
+		// Not the best practice to use a map to store differnt types!
+		Map map = new HashMap();
+		map.put("message", configuration.getMessage());
+		map.put("number", configuration.getNumber());
+		map.put("key", configuration.isValue());
+		return map;
+	}
+}
+```
+* application.properties
+```
+spring.profiles.active=dev
+
+
+logging.level.org.springframework: INFO
+app.name=JD App default profile v.1
+welcome.message=Welcome message from properties files ${app.name}
+
+
+basic.value: true
+basic.message: Default Dynamic Message
+basic.number: 100
+
+```
+
+* application-dev.properties
+```
+logging.level.org.springframework: INFO
+app.name=JD App Dev env profile v.1
+welcome.message=Welcome message from properties files ${app.name}
+
+
+basic.value: true
+basic.message: Dev Dynamic Message
+basic.number: 200
+
+```
+* we can do in YAML as well
+```
+basic: 
+   value: true
+   message: Dynamic Message YAML
+   number: 100
+```
 ---
