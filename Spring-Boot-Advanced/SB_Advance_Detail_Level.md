@@ -991,3 +991,169 @@ basic:
    number: 100
 ```
 ---
+## What You Will Learn during this Step:18
+- Let's switch back to tomcat first!
+- Get introduced to Spring Data JPA
+- Create a very simple example with Spring Data JPA
+- Use CommandLineRunner!
+- for H2 URL : http://localhost:8080/h2-console/
+
+# Some Notes
+- Useful Properties
+ - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+ - spring.datasource.url=jdbc:mysql://localhost:3306/test 
+ - spring.datasource.username=root
+ - spring.datasource.password=admin
+ - spring.datasource.initialize=true 
+ - spring.jpa.hibernate.ddl-auto=update
+ - spring.jpa.show-sql=true
+ 
+### Useful Snippets and References
+
+* pom.xml add dependencies for spring-boot-starter-data-jpa and h2
+```xml
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-jetty</artifactId> 
+			</dependency> -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+```
+
+* com.jd.springboot.jpa.User
+```java
+package com.jd.springboot.jpa;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;// Not perfect!! Should be a proper object!
+    private String role;// Not perfect!! An enum should be a better choice!
+
+    protected User() {
+    }
+
+    public User(String name, String role) {
+        super();
+        this.name = name;
+        this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User [id=%s, name=%s, role=%s]", id, name, role);
+    }
+
+}
+
+```
+
+* com.jd.springboot.jpa.UserRepository
+```java
+package com.jd.springboot.jpa;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<User, Long> {
+}
+```
+
+* com.jd.springboot.jpa.UserCommandLineRunner
+```
+package com.jd.springboot.jpa;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserCommandLineRunner implements CommandLineRunner {
+
+    private static final Logger log = LoggerFactory
+            .getLogger(UserCommandLineRunner.class);
+
+    @Autowired
+    private UserRepository repository;
+
+    @Override
+    public void run(String... args) {
+        // save a couple of customers
+        repository.save(new User("JD", "Admin"));
+        repository.save(new User("Ram", "User"));
+        repository.save(new User("Satish", "Admin"));
+        repository.save(new User("shivam", "User"));
+
+        log.info("-------------------------------");
+        log.info("Finding all users");
+        log.info("-------------------------------");
+        for (User user : repository.findAll()) {
+            log.info(user.toString());
+        }
+
+    }
+
+}
+
+```
+
+
+- Make the database URL a constant by configuring this in application.properties.
+    - spring.datasource.url=jdbc:h2:mem:testdb
+    - spring.data.jpa.repositories.bootstrap-mode=default
+* application.properties
+```properties
+#spring.profiles.active=dev
+
+logging.level.org.springframework: DEBUG
+app.name=JD App default profile v.1
+welcome.message=Welcome message from properties files ${app.name}
+
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+
+
+basic.value: true
+basic.message: Default Dynamic Message
+basic.number: 100
+```
+
+Output
+![Browser](Images/Screenshot_20.png)
+
+---
