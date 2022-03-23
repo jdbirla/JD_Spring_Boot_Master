@@ -1277,3 +1277,63 @@ Hibernate:
 2022-03-23 13:35:54.097  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=3, name=Satish, role=Admin]
 ```
 ---
+## What You Will Learn during this Step:20
+- Introduction to Spring Data Rest
+ - Hit http://localhost:8080/users in POSTMAN
+ - http://localhost:8080/users/1
+ - http://localhost:8080/users/?size=4
+ - http://localhost:8080/users/?sort=name,desc
+ - @Param("role")
+ - http://localhost:8080/users/search/findByRole?role=Admin
+- Good for quick prototype! Be cautious about using this in Big applications!
+
+### Useful Snippets and References
+
+* pom.xml add dependency spring-boot-starter-data-rest
+```xml
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+```
+
+* com.jd.springboot.jpa.UserRestRepository 
+```java
+package com.jd.springboot.jpa;
+
+import java.util.List;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+@RepositoryRestResource(collectionResourceRel = "users" , path = "users")
+public interface UserRestRepository extends PagingAndSortingRepository<User, Long> {
+	List<User> findByRole(@Param("role") String role);
+}
+
+```
+
+
+* Third Snippet : POST to http://localhost:8080/users
+
+```
+HEADER
+Content-Type:application/json
+BODY
+{
+  "name": "Raja",
+  "role": "Admin"
+}
+```
+Fourth Snippet : POST to http://localhost:8080/users/5
+```
+HEADER
+Content-Type:application/json
+BODY
+{
+  "name": "Raja-Updated",
+  "role": "Admin"
+}
+```
+---
+
