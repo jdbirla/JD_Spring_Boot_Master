@@ -826,3 +826,47 @@ welcome:
     message: Welcome to your first Spring Boot app!
 ```
 ---
+## What You Will Learn during this Step:16
+- Understand Basics of Profiles
+- Setting a profile
+	 - Using -Dspring.profiles.active=prod in VM Arguments
+	 - spring.profiles.active=prod  (in properties file)
+- Using a profile
+	 - application-{profile-name}.properties
+	 - @Profile("dev") on a bean
+- Usage
+	- Configure Resources - Databases, Queues, External Services
+	
+- src/main/resource
+
+* application.properties
+```properties
+spring.profiles.active=dev
+
+logging.level.org.springframework: INFO
+app.name=JD App default profile v.1
+welcome.message=Welcome message from properties files ${app.name}
+
+```
+
+* application-dev.properties
+```properties
+logging.level.org.springframework: INFO
+app.name=JD App Dev env profile v.1
+welcome.message=Welcome message from properties files ${app.name}
+```
+
+
+* application-prod.properties
+```properties
+logging.level.org.springframework: INFO
+app.name=JD App Production profile v.1
+welcome.message=Welcome message from properties files ${app.name}
+```
+Input 
+![Browser](Images/Screenshot_18.png)
+
+Output
+![Browser](Images/Screenshot_19.png)
+
+---
