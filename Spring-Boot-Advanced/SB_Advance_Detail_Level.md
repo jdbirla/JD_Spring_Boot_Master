@@ -998,7 +998,7 @@ basic:
 - Use CommandLineRunner!
 - for H2 URL : http://localhost:8080/h2-console/
 
-# Some Notes
+### Some Notes
 - Useful Properties
  - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
  - spring.datasource.url=jdbc:mysql://localhost:3306/test 
@@ -1156,4 +1156,124 @@ basic.number: 100
 Output
 ![Browser](Images/Screenshot_20.png)
 
+---
+## What You Will Learn during this Step:19
+- Look at H2 Console : http://localhost:8080/h2-console
+ - Use db url jdbc:h2:mem:testdb
+- Add findByRole method 
+
+### Some Notes
+- Useful Properties
+ - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+ - spring.datasource.url=jdbc:mysql://localhost:3306/test 
+ - spring.datasource.username=root
+ - spring.datasource.password=admin
+ - spring.datasource.initialize=true 
+ - spring.jpa.hibernate.ddl-auto=update
+ - spring.jpa.show-sql=true
+
+### Useful Snippets and References
+
+* com.jd.springboot.jpa.UserRepository add one customize method findByRole
+```java	
+package com.jd.springboot.jpa;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<User, Long> {
+	List<User> findByRole(String rolename);
+}
+```
+
+* com.jd.springboot.jpa.UserCommandLineRunner implements of Finding all Admins
+```java	
+package com.jd.springboot.jpa;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserCommandLineRunner implements CommandLineRunner {
+
+    private static final Logger log = LoggerFactory
+            .getLogger(UserCommandLineRunner.class);
+
+    @Autowired
+    private UserRepository repository;
+
+    @Override
+    public void run(String... args) {
+        // save a couple of customers
+        repository.save(new User("JD", "Admin"));
+        repository.save(new User("Ram", "User"));
+        repository.save(new User("Satish", "Admin"));
+        repository.save(new User("shivam", "User"));
+
+        log.info("-------------------------------");
+        log.info("Finding all users");
+        log.info("-------------------------------");
+        for (User user : repository.findAll()) {
+            log.info(user.toString());
+        }
+        
+        log.info("-------------------------------");
+        log.info("Finding all Admins");
+        log.info("-------------------------------");
+        for (User admin : repository.findByRole("Admin")) {
+            log.info(admin.toString());
+            // Do something...
+        }
+        
+
+    }
+
+}
+
+```
+
+* OUT PUT
+```java	
+2022-03-23 13:35:53.452  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : Finding all users
+2022-03-23 13:35:53.452  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : -------------------------------
+2022-03-23 13:35:53.453 DEBUG 15752 --- [  restartedMain] stomAnnotationTransactionAttributeSource : Adding transactional method 'findAll' with attribute: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2022-03-23 13:35:53.454 DEBUG 15752 --- [  restartedMain] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2022-03-23 13:35:53.456 DEBUG 15752 --- [  restartedMain] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2037366991<open>)] for JPA transaction
+2022-03-23 13:35:53.463 DEBUG 15752 --- [  restartedMain] o.s.jdbc.datasource.DataSourceUtils      : Setting JDBC Connection [HikariProxyConnection@133795351 wrapping conn0: url=jdbc:h2:mem:testdb user=SA] read-only
+2022-03-23 13:35:53.464 DEBUG 15752 --- [  restartedMain] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@10013f42]
+Hibernate: 
+    select
+        user0_.id as id1_0_,
+        user0_.name as name2_0_,
+        user0_.role as role3_0_ 
+    from
+        user user0_
+2022-03-23 13:35:53.931 DEBUG 15752 --- [  restartedMain] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2022-03-23 13:35:53.931 DEBUG 15752 --- [  restartedMain] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2037366991<open>)]
+2022-03-23 13:35:53.932 DEBUG 15752 --- [  restartedMain] o.s.jdbc.datasource.DataSourceUtils      : Resetting read-only flag of JDBC Connection [HikariProxyConnection@133795351 wrapping conn0: url=jdbc:h2:mem:testdb user=SA]
+2022-03-23 13:35:53.932 DEBUG 15752 --- [  restartedMain] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2037366991<open>)] after transaction
+2022-03-23 13:35:53.933  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=1, name=JD, role=Admin]
+2022-03-23 13:35:53.933  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=2, name=Ram, role=User]
+2022-03-23 13:35:53.933  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=3, name=Satish, role=Admin]
+2022-03-23 13:35:53.933  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=4, name=shivam, role=User]
+2022-03-23 13:35:53.933  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : -------------------------------
+2022-03-23 13:35:53.934  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : Finding all Admins
+2022-03-23 13:35:53.934  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : -------------------------------
+2022-03-23 13:35:53.943 DEBUG 15752 --- [  restartedMain] tor$SharedEntityManagerInvocationHandler : Creating new EntityManager for shared EntityManager invocation
+Hibernate: 
+    select
+        user0_.id as id1_0_,
+        user0_.name as name2_0_,
+        user0_.role as role3_0_ 
+    from
+        user user0_ 
+    where
+        user0_.role=?
+2022-03-23 13:35:54.096  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=1, name=JD, role=Admin]
+2022-03-23 13:35:54.097  INFO 15752 --- [  restartedMain] c.j.s.jpa.UserCommandLineRunner          : User [id=3, name=Satish, role=Admin]
+```
 ---
