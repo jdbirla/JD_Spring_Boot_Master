@@ -1416,4 +1416,58 @@ public class SurveyControllerIT {
 
 ```
 ---
+## What You Will Learn during this Step:22
+- Exercise from previous step
+- Integration Test for POST Request - Add To do
+
+## Useful Snippets and References
+First Snippet
+* com.jd.springboot.controller.SurveyControllerIT  Adding two methods retrieveSurveyQuestions and addQuestion
+```java
+@Test
+    public void retrieveSurveyQuestions() throws Exception {
+        ResponseEntity<List<Question>> response = template.exchange(
+                createUrl("/surveys/Survey1/questions/"), HttpMethod.GET,
+                new HttpEntity<String>("DUMMY_DOESNT_MATTER", headers),
+                new ParameterizedTypeReference<List<Question>>() {
+                });
+
+        Question sampleQuestion = new Question("Question1",
+                "Largest Country in the World", "Russia", Arrays.asList(
+                        "India", "Russia", "United States", "China"));
+
+        System.out.println(" response.getBody() -> "+ response.getBody());
+
+        assertTrue(response.getBody().contains(sampleQuestion));
+    }
+  
+  //NEEDS REFACTORING
+  	@Test
+  	public void addQuestion() {
+
+  		String url = "http://localhost:" + port + "/surveys/Survey1/questions";
+
+  		TestRestTemplate restTemplate = new TestRestTemplate();
+
+  		HttpHeaders headers = new HttpHeaders();
+
+  		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+  		Question question = new Question("DOESNTMATTER", "QuestionJD", "Russia",
+  				Arrays.asList("India", "Russia", "United States", "China"));
+
+  		HttpEntity entity = new HttpEntity<Question>(question, headers);
+
+  		ResponseEntity<String> response = restTemplate.exchange(url,
+  				HttpMethod.POST, entity, String.class);
+
+  		String actual = response.getHeaders().get(HttpHeaders.LOCATION).get(0);
+
+        System.out.println(" actual -> "+ actual);
+
+  		assertTrue(actual.contains("/surveys/Survey1/questions/"));
+
+  	}
+```
+---
 
