@@ -1553,3 +1553,39 @@ public class SurveyControllerTest {
 
 ```
 ---
+## What You Will Learn during this Step:
+- Exercise from previous step
+- Unit test for createTodo
+
+### Useful Snippets and References
+First Snippet
+* com.jd.springboot.controller.SurveyControllerTest  add the method createSurveyQuestion
+```java
+@Test
+    public void createSurveyQuestion() throws Exception {
+    		Question mockQuestion = new Question("1", "Smallest Number", "1",
+				Arrays.asList("1", "2", "3", "4"));
+
+		String questionJson = "{\"description\":\"Smallest Number\",\"correctAnswer\":\"1\",\"options\":[\"1\",\"2\",\"3\",\"4\"]}";
+		//surveyService.addQuestion to respond back with mockQuestion
+		Mockito.when(
+				surveyService.addQuestion(Mockito.anyString(), Mockito
+						.any(Question.class))).thenReturn(mockQuestion);
+
+		//Send question as body to /surveys/Survey1/questions
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post(
+				"/surveys/Survey1/questions")
+				.accept(MediaType.APPLICATION_JSON).content(questionJson)
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+
+		assertEquals("http://localhost/surveys/Survey1/questions/1", response
+				.getHeader(HttpHeaders.LOCATION));
+    
+    }
+```
