@@ -1470,4 +1470,10 @@ First Snippet
   	}
 ```
 ---
+## What You Will Learn during this Step:23
+- Lets do some cleanup
+ - Lets Refactor the SurveyControllerIT.java
 
+## Exercises
+- Test and make sure everything is working fine
+---

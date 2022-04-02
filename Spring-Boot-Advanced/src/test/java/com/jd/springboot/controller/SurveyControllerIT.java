@@ -46,12 +46,13 @@ public class SurveyControllerIT {
 
     
     @Test
-    public void retrieveSurveyQuestion() throws Exception {
+    public void testSurveyQuestion() throws Exception {
 
         String expected = "{\"id\":\"Question1\",\"description\":\"Largest Country in the World\",\"correctAnswer\":\"Russia\",\"options\":[\"India\",\"Russia\",\"United States\",\"China\"]}";
         				 //{id:Question1,description:Largest Country in the World,correctAnswer:Russia,options:[India,Russia,United States,China]}
-        ResponseEntity<String> response = template.exchange(
-                createUrl("/surveys/Survey1/questions/Question1"),
+        String retrieveSpecificQueURL = "/surveys/Survey1/questions/Question1";
+		ResponseEntity<String> response = template.exchange(
+                createUrl(retrieveSpecificQueURL),
                 HttpMethod.GET, new HttpEntity<String>("DUMMY_DOESNT_MATTER",
                         headers), String.class);
 
@@ -62,8 +63,9 @@ public class SurveyControllerIT {
 
     @Test
     public void retrieveSurveyQuestions() throws Exception {
-        ResponseEntity<List<Question>> response = template.exchange(
-                createUrl("/surveys/Survey1/questions/"), HttpMethod.GET,
+        String retreiveAllUqe = "/surveys/Survey1/questions/";
+		ResponseEntity<List<Question>> response = template.exchange(
+                createUrl(retreiveAllUqe), HttpMethod.GET,
                 new HttpEntity<String>("DUMMY_DOESNT_MATTER", headers),
                 new ParameterizedTypeReference<List<Question>>() {
                 });
