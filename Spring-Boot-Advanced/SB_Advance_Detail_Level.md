@@ -1553,7 +1553,7 @@ public class SurveyControllerTest {
 
 ```
 ---
-## What You Will Learn during this Step:
+## What You Will Learn during this Step:25
 - Exercise from previous step
 - Unit test for createTodo
 
@@ -1589,3 +1589,28 @@ First Snippet
     
     }
 ```
+---
+## What You Will Learn during this Step:26
+- Securing our services with Basic Authentication using Spring Security
+- Executing Requests using Basic Authentication with Postman
+ - default user name is user
+ - default security password is printed in console
+ 
+### Useful Snippets and References
+
+* pom.xml add dependency spring-boot-starter-security
+```xml
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+```
+
+- When we add spring-boot-starter-security dependency spring boot will satrt with basic validation and we need provide basic auth credential usin rest API.
+- Credentials : user: user password: printed in console
+* Output
+
+![Browser](Images/Screenshot_21.png)
+
+---
+
