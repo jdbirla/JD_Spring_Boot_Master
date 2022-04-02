@@ -2,6 +2,7 @@ package com.jd.springboot.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jd.springboot.Application;
@@ -37,6 +40,8 @@ public class SurveyControllerIT {
     @Before
     public void setupJSONAcceptType() {
     	System.out.println("Before-JD");
+    	headers.add("Authorization", createHttpAuthenticationHeaderValue(
+				"user1", "secret1"));
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
     }
 
@@ -44,6 +49,18 @@ public class SurveyControllerIT {
         return "http://localhost:" + port + uri;
     }
 
+    private String createHttpAuthenticationHeaderValue(String userId,
+			String password) {
+
+		String auth = userId + ":" + password;
+
+		byte[] encodedAuth = Base64.encode(auth.getBytes(Charset
+				.forName("US-ASCII")));
+
+		String headerValue = "Basic " + new String(encodedAuth);
+
+		return headerValue;
+	}
     
     @Test
     public void testSurveyQuestion() throws Exception {
