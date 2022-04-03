@@ -1465,7 +1465,7 @@ Search for a view named "login"
 		</dependency>
 ```
 
-*
+* application.properties
 
 ```properties
 logging.level.org.springframework.web: INFO
@@ -1473,5 +1473,27 @@ spring.mvc.view.prefix: /WEB-INF/jsp/
 spring.mvc.view.suffix: .jsp
 spring.datasource.url=jdbc:h2:mem:testdb
 spring.data.jpa.repositories.bootstrap-mode=default
+```
+---
+## What we will do 27:
+
+- Configuring H2 Console
+
+* application.properties adding H2 realted config
+
+```properties
+spring.jpa.show-sql=true
+spring.h2.console.enabled=true
+```
+* com.jd.springboot.web.security.SecurityConfiguration  changes in this method
+```java
+@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/login", "/h2-console/**").permitAll()
+                .antMatchers("/", "/*todo*/**").access("hasRole('USER')").and()
+                .formLogin();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+    }
 ```
 ---
