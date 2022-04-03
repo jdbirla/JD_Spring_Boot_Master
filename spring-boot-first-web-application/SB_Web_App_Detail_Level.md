@@ -1616,3 +1616,28 @@ public class Todo {
 ```
 
 ---
+## What we will do 29:
+
+- Insert Todo using JPA Repository
+
+* com.jd.springboot.web.controller.TodoController
+
+```java
+@Autowired
+	TodoRespository repository;
+	@RequestMapping(value="/add-todo", method = RequestMethod.POST)
+	public String addTodo(ModelMap model,  @Valid Todo todo , BindingResult result){
+		if(result.hasErrors()){
+			return "todo";	
+		}
+		todo.setUser(getLoggedInUserName(model));
+		repository.save(todo);
+		//todoService.addTodo(getLoggedInUserName(model), todo.getDesc(), new Date(), false);
+		
+		return "redirect:/list-todos";
+	}
+```
+* Outpuut
+![Browser](Images/Screenshot_11.png)
+
+---
