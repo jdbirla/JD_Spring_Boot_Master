@@ -20,14 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jd.springboot.web.model.Todo;
 import com.jd.springboot.web.service.TodoRespository;
-import com.jd.springboot.web.service.TodoService;
 
 
 @Controller
 public class TodoController {
 	
-	@Autowired
-	TodoService todoService;
+	//@Autowired
+	//TodoService todoService;
 	
 	@Autowired
 	TodoRespository repository;
@@ -44,7 +43,8 @@ public class TodoController {
 	@RequestMapping(value="/list-todos", method = RequestMethod.GET)
 	public String showLoginPage(ModelMap model){
 		String name = getLoggedInUserName(model);
-		model.put("todos", todoService.retrieveTodos(name));
+		//model.put("todos", todoService.retrieveTodos(name));
+		model.put("todos", repository.findByUser(name));
 		return "list-todos";
 	}
 	
@@ -69,13 +69,15 @@ public class TodoController {
 	
 	@RequestMapping(value="/delete-todo", method = RequestMethod.GET)
 	public String deleteTodo(@RequestParam int id){
-		todoService.deleteTodo(id);
+	//	todoService.deleteTodo(id);
+		repository.deleteById(id);
 		return "redirect:/list-todos";
 	}
 	
 	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
 	public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
-		Todo todo = todoService.retrieveTodo(id);
+		//Todo todo = todoService.retrieveTodo(id);
+		Todo todo = repository.findById(id).get();
 		model.put("todo", todo);
 		return "todo";
 	}
@@ -89,8 +91,8 @@ public class TodoController {
 		
 		todo.setUser(getLoggedInUserName(model));
 		
-		todoService.updateTodo(todo);
-
+		//todoService.updateTodo(todo);
+		repository.save(todo);
 		return "redirect:/list-todos";
 	}
 
