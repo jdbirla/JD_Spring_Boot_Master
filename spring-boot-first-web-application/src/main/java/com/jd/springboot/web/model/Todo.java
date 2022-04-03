@@ -2,11 +2,19 @@ package com.jd.springboot.web.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Todo {
+	@Id
+	@GeneratedValue
     private int id;
+	
     private String user;
+    
     @Size(min=15, message="Enter at least 15 Characters...")
     private String desc;
     private Date targetDate;
