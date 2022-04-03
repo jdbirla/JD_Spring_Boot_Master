@@ -1444,3 +1444,34 @@ Search for a view named "login"
 ![Browser](Images/Screenshot_10.png)
 
 ---
+## What we will do 26:
+
+- After Completing "Introduction to JPA"
+- Adding Dependencies for JPA and H2
+
+### code snipt
+
+* Adding dependencies spring-boot-starter-data-jpa and h2
+```xml
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+```
+
+*
+
+```properties
+logging.level.org.springframework.web: INFO
+spring.mvc.view.prefix: /WEB-INF/jsp/
+spring.mvc.view.suffix: .jsp
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+```
+---
