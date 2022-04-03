@@ -1764,5 +1764,30 @@ public class TodoController {
 ![Browser](Images/Screenshot_13.png)
 
 ---
+## What we will do 31:
+
+- Data initialization with data.sql
+* src/main/resources/ add data.sql
+
+```sql
+INSERT INTO TODO
+VALUES(10001, 'Learn Spring Boot', false, sysdate(),'JD');
+
+INSERT INTO TODO
+VALUES(10002, 'Learn RESTful Web Services', false, sysdate(),'JD');
+
+INSERT INTO TODO
+VALUES(10003, 'Learn SOAP Web Services', false, sysdate(),'JD');
+
+```
+* application.properties add below config
+```
+spring.jpa.defer-datasource-initialization=true
+```
+* output
+![Browser](Images/Screenshot_12.png)
+![Browser](Images/Screenshot_13.png)
+
+---
 
 
