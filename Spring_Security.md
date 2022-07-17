@@ -1,5 +1,6 @@
 ## Java Brains
 - src: https://www.youtube.com/results?search_query=spring+security+in+spring+boot
+- Github: src: https://github.com/koushikkothagal/spring-boot-security/tree/master/src/main/java/io/javabrains/springbootsecurity
 
 ![image](https://user-images.githubusercontent.com/69948118/179373350-658da467-2556-4669-b297-a5c225bbacfc.png)
 ![image](https://user-images.githubusercontent.com/69948118/179373355-cdcc8393-8863-422d-a469-b59bba39269a.png)
@@ -57,7 +58,7 @@
 ![image](https://user-images.githubusercontent.com/69948118/179374438-9abd3358-d5ea-4bdb-895b-c47d73369a97.png)
 ![image](https://user-images.githubusercontent.com/69948118/179374441-1409ee68-f8b4-4f25-8324-9afb2a66797e.png)
 ![image](https://user-images.githubusercontent.com/69948118/179374624-1eac1e0f-55c4-4c5b-9903-94082c66e04f.png)
-src: https://github.com/koushikkothagal/spring-boot-security/blob/master/src/main/java/io/javabrains/springbootsecurity/HomeResource.java
+
 
 #### src/main/java/io/javabrains/springbootsecurity/HomeResource.java
 ```java
@@ -127,6 +128,45 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 }
 ```
+### How Spring security works
+![image](https://user-images.githubusercontent.com/69948118/179374905-e80ce0f7-7a37-412e-8667-5e0faf942785.png)
+![image](https://user-images.githubusercontent.com/69948118/179374925-76608058-7b86-4a34-9134-514f22b3ba86.png)
+![image](https://user-images.githubusercontent.com/69948118/179374949-ef3f0fee-54a6-43e7-befb-ed9572d76719.png)
+![image](https://user-images.githubusercontent.com/69948118/179374963-f3b3ec4d-b84a-4535-83bc-5976f18f4deb.png)
+![image](https://user-images.githubusercontent.com/69948118/179375041-c353542d-cf7b-4355-b48c-88bc5ba0d8a0.png)
+![image](https://user-images.githubusercontent.com/69948118/179375051-e597f242-e3ab-4633-a461-c2cce6542cca.png)
+![image](https://user-images.githubusercontent.com/69948118/179375059-f3141a80-ea17-4cf0-879d-84134f3b0d56.png)
+![image](https://user-images.githubusercontent.com/69948118/179375075-457babac-7212-44ed-a290-db94eb745d98.png)
+![image](https://user-images.githubusercontent.com/69948118/179375084-ab733b05-90e2-4fba-8719-163fdbfbe794.png)
+![image](https://user-images.githubusercontent.com/69948118/179375097-27933f5f-8ce8-425b-b443-2d1589cf40c6.png)
+![image](https://user-images.githubusercontent.com/69948118/179375137-6fb9edc4-66ed-4f5d-8d2b-05122ae577bb.png)
+![image](https://user-images.githubusercontent.com/69948118/179375165-9e975ec0-8ba3-4133-a217-3b09e4a87c79.png)
+![image](https://user-images.githubusercontent.com/69948118/179375178-ef5b69f6-4e2a-4793-9947-acdf67485376.png)
+![image](https://user-images.githubusercontent.com/69948118/179375182-25853337-9d2e-4f62-aa84-2aad997b0a7e.png)
+![image](https://user-images.githubusercontent.com/69948118/179375214-6118fa14-ec53-43fb-aee6-6e4abcbe9fcb.png)
+![image](https://user-images.githubusercontent.com/69948118/179375229-b1154601-4e42-4062-b1d2-fbe9cbbec3f5.png)
+![image](https://user-images.githubusercontent.com/69948118/179375234-1169d68c-4f4c-42a5-aade-87494e41d4c6.png)
+![image](https://user-images.githubusercontent.com/69948118/179375262-df37ae01-3714-4d91-bb5c-16d7966e0782.png)
+
+### JDBS Authentication 
+![image](https://user-images.githubusercontent.com/69948118/179375292-43d4a94b-e212-4ede-9367-58a7d305eb10.png)
+![image](https://user-images.githubusercontent.com/69948118/179375359-b3cfe9ad-ab33-4c3c-9467-7a652aa6bd4b.png)
+![image](https://user-images.githubusercontent.com/69948118/179375699-0481bbbc-090d-42d5-9271-9b0b4648b075.png)
+![image](https://user-images.githubusercontent.com/69948118/179375701-d7ad7225-f51a-43bc-9a16-fa8afc5ac3b1.png)
+![image](https://user-images.githubusercontent.com/69948118/179375871-3aaef171-f5d0-4854-a6b3-1b2ad8fdeef3.png)
+![image](https://user-images.githubusercontent.com/69948118/179375892-1cd008fc-c5e9-48af-b647-e5815d62a098.png)
+![image](https://user-images.githubusercontent.com/69948118/179375918-a8d83111-0ea7-4795-a60b-37f077d92e4e.png)
+![image](https://user-images.githubusercontent.com/69948118/179376219-a615eb39-95f2-49d8-b409-e1f05b0609f2.png)
+![image](https://user-images.githubusercontent.com/69948118/179376558-4adb581e-2feb-4c14-8a55-577106e495f2.png)
+
+### Spring Boot + Spring Security with JPA authentication and MySql
+
+
+
+
+
+
+
 
 
 
