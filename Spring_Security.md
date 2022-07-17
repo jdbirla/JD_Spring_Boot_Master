@@ -847,13 +847,69 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 }
 ```
 
+### Oath
+![image](https://user-images.githubusercontent.com/69948118/179384883-49ab6543-4360-4de4-ba3e-2aa2dc5eedae.png)
+![image](https://user-images.githubusercontent.com/69948118/179384904-242f8c8a-8b4b-48a8-a751-3c01ff04772a.png)
+![image](https://user-images.githubusercontent.com/69948118/179384909-05de316c-7e4c-4c55-ba53-9a2fd72993b7.png)
+![image](https://user-images.githubusercontent.com/69948118/179384915-98203694-a31d-4e96-9922-4921fefd028a.png)
+![image](https://user-images.githubusercontent.com/69948118/179384962-4ef985e3-8737-44eb-a572-705acf43cbb1.png)
+![image](https://user-images.githubusercontent.com/69948118/179384966-865a73b4-863e-4ccc-ad0d-3e5f3a51f962.png)
+![image](https://user-images.githubusercontent.com/69948118/179384980-d4b8f16f-1351-4b41-a467-70475e16c410.png)
+![image](https://user-images.githubusercontent.com/69948118/179384984-317ebe6e-73ac-49de-837a-710436f95fc4.png)
+![image](https://user-images.githubusercontent.com/69948118/179384995-a264c93c-6750-4de7-b4eb-6501786712b8.png)
+![image](https://user-images.githubusercontent.com/69948118/179385003-d12d34e6-1c3e-4540-b15e-107016b1224d.png)
+![image](https://user-images.githubusercontent.com/69948118/179385011-b51baa1e-c7c4-4839-9722-ae169b448e60.png)
+![image](https://user-images.githubusercontent.com/69948118/179385013-8aa203f7-21ec-4589-88b5-821408d02833.png)
+![image](https://user-images.githubusercontent.com/69948118/179385018-30f11de5-1375-4931-8283-3d8700e9f5bf.png)
+![image](https://user-images.githubusercontent.com/69948118/179385020-9be5fdc0-4685-4c22-aa70-8adaa16bae4a.png)
+![image](https://user-images.githubusercontent.com/69948118/179385028-6bbf6be6-8a0c-4ff4-b134-d5c6b961e966.png)
+![image](https://user-images.githubusercontent.com/69948118/179385057-7ef7d3f6-1486-48e4-a5cb-0196fdb30cd6.png)
+![image](https://user-images.githubusercontent.com/69948118/179385072-c9f1c29f-d479-4d27-98ee-dbdccfad2f89.png)
+![image](https://user-images.githubusercontent.com/69948118/179385073-fb0a2ba9-4d2b-425e-96eb-c190e21910bc.png)
+![image](https://user-images.githubusercontent.com/69948118/179385082-f675a841-8666-4ba0-87f4-3a1ce15d7619.png)
+![image](https://user-images.githubusercontent.com/69948118/179385086-146fc839-09fe-4605-aa07-2dbeb82fd2db.png)
+![image](https://user-images.githubusercontent.com/69948118/179385097-14034c9e-1a69-48ae-8734-7efb08617d8a.png)
+![image](https://user-images.githubusercontent.com/69948118/179385102-25b7443e-81f9-4a37-bdb4-71f337e58dd4.png)
 
 
+### Oauth Terminologies
+![image](https://user-images.githubusercontent.com/69948118/179385135-98f413a4-0a5a-4f51-ba2b-cd202bc92f8b.png)
+![image](https://user-images.githubusercontent.com/69948118/179385149-940c847e-f2e2-4aa1-a24a-bb24ac479893.png)
+![image](https://user-images.githubusercontent.com/69948118/179385178-782f49fe-ebe7-43c5-9a00-82ce8f78c5fd.png)
+![image](https://user-images.githubusercontent.com/69948118/179385201-f96dc700-fc26-44f6-be5a-ec85c1f59397.png)
+![image](https://user-images.githubusercontent.com/69948118/179385218-992b432d-a8ba-412a-832a-1162ba37a2aa.png)
+![image](https://user-images.githubusercontent.com/69948118/179385235-3e2f533a-5c50-44a6-bb45-52d42ed1e897.png)
+![image](https://user-images.githubusercontent.com/69948118/179385253-ef8e05c2-1c60-4465-905d-3d2a8c8d3907.png)
+![image](https://user-images.githubusercontent.com/69948118/179385274-2ddd7cd5-0071-4dc7-9ee2-9318cd4ed076.png)
+![image](https://user-images.githubusercontent.com/69948118/179385291-71e2966d-3d41-4d6d-8cb1-23a7a3ee6de9.png)
+![image](https://user-images.githubusercontent.com/69948118/179385312-6d5d9b92-98e2-4042-aa0b-86b7a2c71ab9.png)
+![image](https://user-images.githubusercontent.com/69948118/179385349-997479e8-e5ee-4758-b030-506f5c6490be.png)
+![image](https://user-images.githubusercontent.com/69948118/179385386-d29a7d5a-f1f1-4972-80ea-e33624eead51.png)
+![image](https://user-images.githubusercontent.com/69948118/179385389-063132f3-4afa-478f-a249-fec55284c6ba.png)
+![image](https://user-images.githubusercontent.com/69948118/179385405-69281009-587e-4b1c-91a3-9ea3f14a5627.png)
+![image](https://user-images.githubusercontent.com/69948118/179385420-f7db3135-1360-4568-a6f5-8b5fd8c02d20.png)
+![image](https://user-images.githubusercontent.com/69948118/179385426-c8b1f1e5-849d-431f-852c-96d9b8b9cce2.png)
+![image](https://user-images.githubusercontent.com/69948118/179385438-395299c5-3063-4c1f-8f2d-9f5eb7a67d73.png)
+![image](https://user-images.githubusercontent.com/69948118/179385444-e7e0b9dd-544e-4ae2-b578-48d6701b18e6.png)
+![image](https://user-images.githubusercontent.com/69948118/179385477-c98c4c7a-4615-461e-b74f-6d7d0a2c2b55.png)
+![image](https://user-images.githubusercontent.com/69948118/179385484-745c3fc3-2dd2-4a6c-a9c3-b08bd6c13e16.png)
+![image](https://user-images.githubusercontent.com/69948118/179385508-05ad08aa-9a2f-4c67-9544-f4fbe100f72d.png)
+![image](https://user-images.githubusercontent.com/69948118/179385517-ae61507a-7391-4de9-be13-4f36af222f0e.png)
+![image](https://user-images.githubusercontent.com/69948118/179385521-a2829ac9-5e2c-405c-ae75-96a48c419946.png)
+![image](https://user-images.githubusercontent.com/69948118/179385524-05bf67e7-8706-488c-bac1-4305577ae17b.png)
+![image](https://user-images.githubusercontent.com/69948118/179385531-99d6c19c-42cf-4145-8f1d-a77c1671cc97.png)
+![image](https://user-images.githubusercontent.com/69948118/179385563-cad9fed1-0aec-4c9f-97b3-1bea875a678d.png)
+![image](https://user-images.githubusercontent.com/69948118/179385569-99fc755a-a4e2-460b-949d-1f8d617e11e6.png)
+![image](https://user-images.githubusercontent.com/69948118/179385576-345c63ee-48c5-4590-a149-a3c391df2611.png)
+![image](https://user-images.githubusercontent.com/69948118/179385637-8cef3dd0-bd9c-4bf7-88c2-9aedc1eb4163.png)
+![image](https://user-images.githubusercontent.com/69948118/179385683-124aee42-5a03-4632-a674-cdadfe6d63eb.png)
+![image](https://user-images.githubusercontent.com/69948118/179385700-7cf8c7f0-aeee-4d7f-8f05-66c980e7d17a.png)
+![image](https://user-images.githubusercontent.com/69948118/179385730-81c2ed41-2156-4348-a0c0-d8b2d7bfdbae.png)
+![image](https://user-images.githubusercontent.com/69948118/179385755-1bf4bfba-0dd2-4017-ae85-1a02c51daeda.png)
+![image](https://user-images.githubusercontent.com/69948118/179385760-852cb265-90f7-4069-964e-799d41cacfe4.png)
+![image](https://user-images.githubusercontent.com/69948118/179385764-3376888b-cd8d-4a13-9c52-a345b9fb9157.png)
 
-
-
-
-
+### Implementing login with Facebook and Github
 
 
 
