@@ -160,7 +160,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 ![image](https://user-images.githubusercontent.com/69948118/179376219-a615eb39-95f2-49d8-b409-e1f05b0609f2.png)
 ![image](https://user-images.githubusercontent.com/69948118/179376558-4adb581e-2feb-4c14-8a55-577106e495f2.png)
 
-### Spring Boot + Spring Security with JPA authentication and MySql
+### Spring Boot + Spring Security + JPA authentication and MySql
 
 ![image](https://user-images.githubusercontent.com/69948118/179377461-c2ed9bdd-8731-49c6-bc71-ded0058c63c9.png)
 ![image](https://user-images.githubusercontent.com/69948118/179377511-9e38b46f-68c7-49a8-b18f-8d6af5e01c42.png)
@@ -438,6 +438,95 @@ public class SpringSecurityJpaApplication {
 
 }
 ```
+### Spring Boot + Spring Security + LDAP
+![image](https://user-images.githubusercontent.com/69948118/179380011-8b2910fa-6ef8-41c8-9ef5-ff8ba511b870.png)
+![image](https://user-images.githubusercontent.com/69948118/179380056-f3c6522e-4b27-4429-b4c6-87abc5232e05.png)
+![image](https://user-images.githubusercontent.com/69948118/179380107-30788769-d20b-407c-96c1-3e0faed1d68a.png)
+![image](https://user-images.githubusercontent.com/69948118/179380222-88589a3c-ed14-4b18-b1e3-01544d6e6d64.png)
+![image](https://user-images.githubusercontent.com/69948118/179380189-027cc59e-208e-4a81-b26b-29759e38eb0f.png)
+![image](https://user-images.githubusercontent.com/69948118/179380347-08bc5bcb-7696-4eff-a369-8db535aba0dd.png)
+![image](https://user-images.githubusercontent.com/69948118/179380387-28406651-54b7-4698-bcca-445513a7ed33.png)
+![image](https://user-images.githubusercontent.com/69948118/179380381-fe54381f-5fc8-4b7f-bf45-c8b364c36a45.png)
+
+### JWT for microservices
+![image](https://user-images.githubusercontent.com/69948118/179380402-8f0ec34d-d24e-4d75-a743-87652d759f66.png)
+![image](https://user-images.githubusercontent.com/69948118/179380419-dd42d25a-1a95-4a0b-8315-3d1050cc858a.png)
+![image](https://user-images.githubusercontent.com/69948118/179380443-adfec1bb-e182-4acc-95e6-3f07952f9289.png)
+![image](https://user-images.githubusercontent.com/69948118/179380478-62cb7fd2-b5a7-46f1-ad65-12d9c472f96a.png)
+![image](https://user-images.githubusercontent.com/69948118/179380480-aadbd6d8-a6f2-487a-affb-8881c65bd819.png)
+![image](https://user-images.githubusercontent.com/69948118/179380484-2862b050-1f2f-4edc-a4d1-b421c03557d5.png)
+![image](https://user-images.githubusercontent.com/69948118/179380488-a4d6cebf-da9d-4431-95dd-78fc9d0325b7.png)
+![image](https://user-images.githubusercontent.com/69948118/179380495-11b7c73f-da73-4593-bdfb-009a3bf48869.png)
+![image](https://user-images.githubusercontent.com/69948118/179380500-134338c1-8f08-4071-9679-f5eae28ad1ea.png)
+![image](https://user-images.githubusercontent.com/69948118/179380524-6c196670-f16f-4962-a1d8-b892b19a713b.png)
+![image](https://user-images.githubusercontent.com/69948118/179380534-71258593-d2c5-432b-9541-2fe4e775eb8c.png)
+![image](https://user-images.githubusercontent.com/69948118/179380545-5825a111-7c8b-496d-852e-d96f49ce52f4.png)
+![image](https://user-images.githubusercontent.com/69948118/179380561-ee220c78-3748-4c7b-b6d1-8ecf82894896.png)
+![image](https://user-images.githubusercontent.com/69948118/179380566-727dc607-020f-44b9-b120-ae97389fbe42.png)
+![image](https://user-images.githubusercontent.com/69948118/179380570-b850398f-0fab-460b-a529-f71cfbe49be8.png)
+![image](https://user-images.githubusercontent.com/69948118/179380574-1063387f-f364-48f3-b444-3719043086fd.png)
+![image](https://user-images.githubusercontent.com/69948118/179380589-bc780e0a-8aff-4fbf-823b-b6e0384e941a.png)
+![image](https://user-images.githubusercontent.com/69948118/179380591-0cc76968-0b44-4c99-a1b1-dbdd5b8148a6.png)
+![image](https://user-images.githubusercontent.com/69948118/179380594-dacbf68f-a842-4bb8-bd87-d0dfa6f7847e.png)
+![image](https://user-images.githubusercontent.com/69948118/179380598-d06cdad7-af61-4fed-be28-14d052b09ec0.png)
+![image](https://user-images.githubusercontent.com/69948118/179380608-cdc586c1-3e35-4c09-8359-309a3c102007.png)
+![image](https://user-images.githubusercontent.com/69948118/179380620-32f5e17a-6428-478a-a9b0-464cab0f5b57.png)
+![image](https://user-images.githubusercontent.com/69948118/179380623-d4dfbe6f-1ef1-409b-80ec-721c46b1a1c4.png)
+![image](https://user-images.githubusercontent.com/69948118/179380646-820f473b-01a2-44d4-b4bc-204ad44ef07e.png)
+![image](https://user-images.githubusercontent.com/69948118/179380656-dae442e1-bcb9-475c-93e6-1d9eb0413c34.png)
+![image](https://user-images.githubusercontent.com/69948118/179380668-6ed49dbe-eba1-4736-8efb-7f7eccc8b515.png)
+![image](https://user-images.githubusercontent.com/69948118/179380679-91a87e7a-8d55-4a42-919f-2186068bd673.png)
+![image](https://user-images.githubusercontent.com/69948118/179380692-905bd4d7-958a-4036-9104-960e94f5f715.png)
+![image](https://user-images.githubusercontent.com/69948118/179380695-1d1d4625-3066-44b4-993b-6e483a5711b4.png)
+![image](https://user-images.githubusercontent.com/69948118/179380700-fd861e83-d53f-4fc5-8a6b-53e0d3dd7aba.png)
+![image](https://user-images.githubusercontent.com/69948118/179380703-99e4b270-527e-407b-a22a-a55cfac7d10b.png)
+![image](https://user-images.githubusercontent.com/69948118/179380710-ebc34ea7-8795-4978-aff9-995016fec763.png)
+![image](https://user-images.githubusercontent.com/69948118/179380717-05ac42bb-9079-4957-a03a-e9ed1e61a4a0.png)
+![image](https://user-images.githubusercontent.com/69948118/179380728-9c10ec7a-4536-4252-9877-6078b382c65b.png)
+![image](https://user-images.githubusercontent.com/69948118/179380749-c232387f-43b7-447e-8844-e54492c1d939.png)
+![image](https://user-images.githubusercontent.com/69948118/179380760-37d7f141-25aa-4aa7-9c20-383c56ffc56c.png)
+
+
+### Structure of JWT
+![image](https://user-images.githubusercontent.com/69948118/179380778-a99151a1-ce2f-4640-ac9b-23854e3528ba.png)
+![image](https://user-images.githubusercontent.com/69948118/179380790-df474a4e-760c-496f-8fde-e12d47c53e66.png)
+![image](https://user-images.githubusercontent.com/69948118/179380796-02437a33-d763-4c74-a10f-9ba2b15c6697.png)
+![image](https://user-images.githubusercontent.com/69948118/179380813-99a1389f-fb3a-489a-b81b-f373ca480ed1.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
