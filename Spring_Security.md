@@ -911,6 +911,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 ### Implementing login with Facebook and Github
 
+![image](https://user-images.githubusercontent.com/69948118/179385876-ba7f6c78-756f-4997-8daa-43ce2bd17a9c.png)
+![image](https://user-images.githubusercontent.com/69948118/179386040-ac2bc6b8-fff7-41d8-a97a-858a7947bc83.png)
+![image](https://user-images.githubusercontent.com/69948118/179386133-b296450a-19d0-4211-a783-eacc06e046ec.png)
+![image](https://user-images.githubusercontent.com/69948118/179386144-351cc965-04be-48e4-b0c3-878b1acff58d.png)
+![image](https://user-images.githubusercontent.com/69948118/179386215-3878418b-d936-4257-9123-40971ce0caf9.png)
+![image](https://user-images.githubusercontent.com/69948118/179386224-06b98906-a342-40a1-8f87-2fedbfbb75cd.png)
+![image](https://user-images.githubusercontent.com/69948118/179386234-2dc50a1a-822d-4120-b2e6-736a0b32fad3.png)
+![image](https://user-images.githubusercontent.com/69948118/179386304-c5613fec-6a96-40e8-8d8c-8f758e200e8c.png)
+![image](https://user-images.githubusercontent.com/69948118/179386360-3acb73cb-81c7-45bc-b3c3-eedbd21fdfff.png)
+![image](https://user-images.githubusercontent.com/69948118/179386395-9e4d4c6b-cb64-4e33-9231-5b0ca05f5bb1.png)
+![image](https://user-images.githubusercontent.com/69948118/179386415-0cf22df6-65af-42a9-bcd1-44bbafff2f29.png)
+![image](https://user-images.githubusercontent.com/69948118/179386429-96ebd286-2c98-4f54-a239-fcd64cfb47ef.png)
+
 
 
 
