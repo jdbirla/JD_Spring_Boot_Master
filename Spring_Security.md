@@ -1,6 +1,7 @@
 ## Java Brains
 - src: https://www.youtube.com/results?search_query=spring+security+in+spring+boot
 - Github: src: https://github.com/koushikkothagal/spring-boot-security/tree/master/src/main/java/io/javabrains/springbootsecurity
+- JPA: https://github.com/koushikkothagal/spring-security-jpa
 
 ![image](https://user-images.githubusercontent.com/69948118/179373350-658da467-2556-4669-b297-a5c225bbacfc.png)
 ![image](https://user-images.githubusercontent.com/69948118/179373355-cdcc8393-8863-422d-a469-b59bba39269a.png)
@@ -148,7 +149,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 ![image](https://user-images.githubusercontent.com/69948118/179375234-1169d68c-4f4c-42a5-aade-87494e41d4c6.png)
 ![image](https://user-images.githubusercontent.com/69948118/179375262-df37ae01-3714-4d91-bb5c-16d7966e0782.png)
 
-### JDBS Authentication 
+### JDBC Authentication 
 ![image](https://user-images.githubusercontent.com/69948118/179375292-43d4a94b-e212-4ede-9367-58a7d305eb10.png)
 ![image](https://user-images.githubusercontent.com/69948118/179375359-b3cfe9ad-ab33-4c3c-9467-7a652aa6bd4b.png)
 ![image](https://user-images.githubusercontent.com/69948118/179375699-0481bbbc-090d-42d5-9271-9b0b4648b075.png)
@@ -161,12 +162,282 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 ### Spring Boot + Spring Security with JPA authentication and MySql
 
+![image](https://user-images.githubusercontent.com/69948118/179377461-c2ed9bdd-8731-49c6-bc71-ded0058c63c9.png)
+![image](https://user-images.githubusercontent.com/69948118/179377511-9e38b46f-68c7-49a8-b18f-8d6af5e01c42.png)
+![image](https://user-images.githubusercontent.com/69948118/179377989-a806c5c6-7a7f-4e12-809b-0d8f9527cba2.png)
+![image](https://user-images.githubusercontent.com/69948118/179378934-f1f9e7d4-f768-4d1d-85fe-39df89e7865b.png)
+![image](https://user-images.githubusercontent.com/69948118/179379227-11b6c0a1-27fd-427f-aef8-805b7ea54a26.png)
+![image](https://user-images.githubusercontent.com/69948118/179379429-d85722ab-9fd0-4f04-ad7e-bda7638a5692.png)
+![image](https://user-images.githubusercontent.com/69948118/179379432-f590bad9-a39c-4b26-aac7-b2890f9c8e19.png)
 
+#### /src/main/resources/application.properties
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/springsecurity
+spring.datasource.username=root
+spring.datasource.password =password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.naming-strategy=org.hibernate.cfg.ImprovedNamingStrategy
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+```
+#### src/main/java/io/javabrains/springsecurityjpa/models/MyUserDetails.java
 
+```java
+package io.javabrains.springsecurityjpa.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
+public class MyUserDetails implements UserDetails {
 
+    private String userName;
+    private String password;
+    private boolean active;
+    private List<GrantedAuthority> authorities;
+
+    public MyUserDetails(User user) {
+        this.userName = user.getUserName();
+        this.password = user.getPassword();
+        this.active = user.isActive();
+        this.authorities = Arrays.stream(user.getRoles().split(","))
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
+    }
+}
+```
+#### /src/main/java/io/javabrains/springsecurityjpa/models/User.java 
+
+```java
+package io.javabrains.springsecurityjpa.models;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "User")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private String userName;
+    private String password;
+    private boolean active;
+    private String roles;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+}
+```
+#### /src/main/java/io/javabrains/springsecurityjpa/HomeResource.java 
+
+```java
+package io.javabrains.springsecurityjpa;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeResource {
+
+    @GetMapping("/")
+    public String home() {
+        return ("<h1>Welcome</h1>");
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return ("<h1>Welcome User</h1>");
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return ("<h1>Welcome Admin</h1>");
+    }
+}
+
+```
+#### /src/main/java/io/javabrains/springsecurityjpa/MyUserDetailsService.java 
+
+```java
+package io.javabrains.springsecurityjpa;
+
+import io.javabrains.springsecurityjpa.models.MyUserDetails;
+
+import io.javabrains.springsecurityjpa.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class MyUserDetailsService implements UserDetailsService {
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByUserName(userName);
+
+        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + userName));
+
+        return user.map(MyUserDetails::new).get();
+    }
+}
+```
+
+### /src/main/java/io/javabrains/springsecurityjpa/SecurityConfiguration.java
+```java
+package io.javabrains.springsecurityjpa;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/").permitAll()
+                .and().formLogin();
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
+    }
+}
+```
+
+### /src/main/java/io/javabrains/springsecurityjpa/UserRepository.java 
+```java
+package io.javabrains.springsecurityjpa;
+
+import io.javabrains.springsecurityjpa.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+    Optional<User> findByUserName(String userName);
+}
+```
+
+### /src/main/java/io/javabrains/springsecurityjpa/SpringSecurityJpaApplication.java
+```java
+package io.javabrains.springsecurityjpa;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@SpringBootApplication
+@EnableJpaRepositories(basePackageClasses = UserRepository.class)
+public class SpringSecurityJpaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringSecurityJpaApplication.class, args);
+	}
+
+}
+```
 
 
 
