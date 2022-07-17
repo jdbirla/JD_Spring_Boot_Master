@@ -2,6 +2,7 @@
 - src: https://www.youtube.com/results?search_query=spring+security+in+spring+boot
 - Github: src: https://github.com/koushikkothagal/spring-boot-security/tree/master/src/main/java/io/javabrains/springbootsecurity
 - JPA: https://github.com/koushikkothagal/spring-security-jpa
+- JWT:https://github.com/koushikkothagal/spring-security-jwt
 
 ![image](https://user-images.githubusercontent.com/69948118/179373350-658da467-2556-4669-b297-a5c225bbacfc.png)
 ![image](https://user-images.githubusercontent.com/69948118/179373355-cdcc8393-8863-422d-a469-b59bba39269a.png)
@@ -492,6 +493,361 @@ public class SpringSecurityJpaApplication {
 ![image](https://user-images.githubusercontent.com/69948118/179380790-df474a4e-760c-496f-8fde-e12d47c53e66.png)
 ![image](https://user-images.githubusercontent.com/69948118/179380796-02437a33-d763-4c74-a10f-9ba2b15c6697.png)
 ![image](https://user-images.githubusercontent.com/69948118/179380813-99a1389f-fb3a-489a-b81b-f373ca480ed1.png)
+- jwt.io
+![image](https://user-images.githubusercontent.com/69948118/179380840-44fbddb6-eafe-4d96-bd8f-d9ec292d2fb1.png)
+![image](https://user-images.githubusercontent.com/69948118/179381047-4f56072d-1312-4ba1-9994-ed319f80366a.png)
+![image](https://user-images.githubusercontent.com/69948118/179381062-c00248fa-8f12-4620-8db8-80cf3053eca7.png)
+![image](https://user-images.githubusercontent.com/69948118/179381063-e43c27be-1057-4f59-8387-72f06cb88d99.png)
+![image](https://user-images.githubusercontent.com/69948118/179381065-ff43a069-8ed1-4a03-aaea-c60899470f78.png)
+![image](https://user-images.githubusercontent.com/69948118/179381066-eb689825-d86a-4ae3-b705-b004a7d22903.png)
+![image](https://user-images.githubusercontent.com/69948118/179381068-c3f766b3-fc73-4a63-939d-5e5b50b3bec2.png)
+![image](https://user-images.githubusercontent.com/69948118/179381074-bf1e4668-2220-489a-b578-1d674ae1d301.png)
+![image](https://user-images.githubusercontent.com/69948118/179381084-f6ba63eb-0c67-4275-975f-9891fd1b8c1d.png)
+![image](https://user-images.githubusercontent.com/69948118/179381095-16722ff6-4062-4a1d-9216-bfafe1d5566f.png)
+![image](https://user-images.githubusercontent.com/69948118/179381098-7868a53f-6afd-4967-8723-1e92ab36f2db.png)
+![image](https://user-images.githubusercontent.com/69948118/179381127-654db434-a192-46aa-92fe-2286b6f63967.png)
+
+
+### Spring Boot+ Spring Security + JWT
+![image](https://user-images.githubusercontent.com/69948118/179382174-8506c268-08ad-4b3b-b497-9121a79d5a62.png)
+![image](https://user-images.githubusercontent.com/69948118/179382175-8e8b72ae-5ed8-4c09-855d-1719df299268.png)
+![image](https://user-images.githubusercontent.com/69948118/179382185-59e31958-49d2-448e-a032-8f26920e0d9c.png)
+![image](https://user-images.githubusercontent.com/69948118/179382358-0d17b860-3ebb-40b7-822e-6fa6976be44a.png)
+![image](https://user-images.githubusercontent.com/69948118/179382506-a1e540e2-07cc-44a2-81f4-9a4c24ba55d7.png)
+![image](https://user-images.githubusercontent.com/69948118/179382857-7698de6f-5b34-4a67-a96d-7fdc79a45b6a.png)
+
+#### /src/main/java/io/javabrains/springsecurityjwt/SpringSecurityJwtApplication.java 
+
+```java
+package io.javabrains.springsecurityjwt;
+
+import io.javabrains.springsecurityjwt.filters.JwtRequestFilter;
+import io.javabrains.springsecurityjwt.models.AuthenticationRequest;
+import io.javabrains.springsecurityjwt.models.AuthenticationResponse;
+import io.javabrains.springsecurityjwt.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class SpringSecurityJwtApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringSecurityJwtApplication.class, args);
+	}
+
+}
+
+@RestController
+class HelloWorldController {
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtUtil jwtTokenUtil;
+
+	@Autowired
+	private MyUserDetailsService userDetailsService;
+
+	@RequestMapping({ "/hello" })
+	public String firstPage() {
+		return "Hello World";
+	}
+
+	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+			);
+		}
+		catch (BadCredentialsException e) {
+			throw new Exception("Incorrect username or password", e);
+		}
+
+
+		final UserDetails userDetails = userDetailsService
+				.loadUserByUsername(authenticationRequest.getUsername());
+
+		final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+	}
+
+}
+
+@EnableWebSecurity
+class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private UserDetailsService myUserDetailsService;
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(myUserDetailsService);
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.csrf().disable()
+				.authorizeRequests().antMatchers("/authenticate").permitAll().
+						anyRequest().authenticated().and().
+						exceptionHandling().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+	}
+
+}
+```
+
+
+####  /src/main/java/io/javabrains/springsecurityjwt/MyUserDetailsService.java 
+
+```java
+package io.javabrains.springsecurityjwt;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+
+@Service
+public class MyUserDetailsService implements UserDetailsService {
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return new User("foo", "foo",
+                new ArrayList<>());
+    }
+}
+```
+
+####  /src/main/java/io/javabrains/springsecurityjwt/util/JwtUtil.java 
+
+```java
+package io.javabrains.springsecurityjwt.util;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+@Service
+public class JwtUtil {
+
+    private String SECRET_KEY = "secret";
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+    }
+
+    private Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userDetails.getUsername());
+    }
+
+    private String createToken(Map<String, Object> claims, String subject) {
+
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+    }
+
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+}
+```
+
+####  /src/main/java/io/javabrains/springsecurityjwt/models/AuthenticationRequest.java 
+
+```java
+package io.javabrains.springsecurityjwt.models;
+
+import java.io.Serializable;
+
+public class AuthenticationRequest implements Serializable {
+
+
+    private String username;
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    //need default constructor for JSON Parsing
+    public AuthenticationRequest()
+    {
+
+    }
+
+    public AuthenticationRequest(String username, String password) {
+        this.setUsername(username);
+        this.setPassword(password);
+    }
+}
+```
+
+####  /src/main/java/io/javabrains/springsecurityjwt/models/AuthenticationResponse.java
+
+```java
+package io.javabrains.springsecurityjwt.models;
+
+import java.io.Serializable;
+
+public class AuthenticationResponse implements Serializable {
+
+    private final String jwt;
+
+    public AuthenticationResponse(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+}
+```
+
+
+####  /src/main/java/io/javabrains/springsecurityjwt/filters/JwtRequestFilter.java 
+
+```java
+package io.javabrains.springsecurityjwt.filters;
+
+import io.javabrains.springsecurityjwt.MyUserDetailsService;
+import io.javabrains.springsecurityjwt.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@Component
+public class JwtRequestFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+
+        final String authorizationHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String jwt = null;
+
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            jwt = authorizationHeader.substring(7);
+            username = jwtUtil.extractUsername(jwt);
+        }
+
+
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            if (jwtUtil.validateToken(jwt, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+        chain.doFilter(request, response);
+    }
+
+}
+```
+
+
 
 
 
