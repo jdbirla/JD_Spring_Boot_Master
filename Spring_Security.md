@@ -925,7 +925,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 ![image](https://user-images.githubusercontent.com/69948118/179386429-96ebd286-2c98-4f54-a239-fcd64cfb47ef.png)
 
 
+---
 
+## Java Techie
+
+## spring-basic-security
+- https://github.com/Java-Techie-jt/spring-basic-security
+## Spring Security using Spring Data JPA + MySQL + Spring Boot | Java Techie
+- https://github.com/Java-Techie-jt/spring-security-jpa
 
 
 
