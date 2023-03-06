@@ -88,8 +88,10 @@ public class UserService {
 - Now, let us talk about the rollback process. If the code segment inside a Transactional method throws a Runtime exception or error, the transaction is automatically rolled back by the framework.
 - In the below code snippet, a NullPointerException is thrown by the code which is a Runtime exception and hence the transaction is rolled back
 ```java
-public class UserService {@Autowired
-UserRespository userRepository;@Transactional
+public class UserService {
+@Autowired
+UserRespository userRepository;
+    @Transactional
     public User getUser(String id) throws   UserNotEligibleToDriveException{
         User user = userRepository.get(id);//Assume user object is null
 //We get NullPointerException on below lineuser.setMobile("12345678");//below line not executeduserRepository.save(user)}
@@ -98,8 +100,10 @@ UserRespository userRepository;@Transactional
 - However, the transaction is not rolled back for the Checked Exceptions.
 - Consider the following code snippet. In the case of the checked exception below, the user mobile number is set to 12345678 but the transaction is not rolled back because the code throws a Checked Exception.
 ```java
-public class UserService {@Autowired
-UserRespository userRepository;@Transactional
+public class UserService {
+@Autowired
+UserRespository userRepository;
+   @Transactional
     public User getUser(String id) throws   UserNotEligibleToDriveException{
         User user = userRepository.get(id);        user.setMobile("12345678");       //Checked Exception
         if(user.age < 18)
