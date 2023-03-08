@@ -85,6 +85,36 @@ public class UserService {
 4. a readOnly flag – a hint for the persistence provider that the transaction should be read only
 5. the Rollback rules for the transaction
 
+---
+- https://www.javainuse.com/spring/springtrans
+#### Propagation Type of the transaction
+  - Transaction Propagation indicates if any component or service will or will not participate in transaction and how will it behave if the calling calling component/service already has or does not have a transaction created already.
+  - Propagations
+      - REQUIRED (Default)
+      - SUPPORTS
+      - NOT_SUPPORTED
+      - REQUIRES_NEW
+      - NEVER
+      - MANDATORY
+- REQUIRED (Default)
+     ![image](https://user-images.githubusercontent.com/69948118/223617183-5ff2acbe-161d-46e5-a424-5aa030327c86.png)
+- SUPPORTS
+    ![image](https://user-images.githubusercontent.com/69948118/223617230-ef442e06-521e-46ca-936e-5b5179ef5dfc.png)
+- NOT_SUPPORTED
+    ![image](https://user-images.githubusercontent.com/69948118/223617302-e0f23f73-5ab3-4dc5-8439-15a5c18c3e0c.png)
+- REQUIRES_NEW
+    ![image](https://user-images.githubusercontent.com/69948118/223617355-ae8f490a-8a35-43fd-8194-b11b793a8d83.png)
+    
+- NEVER
+
+  ![image](https://user-images.githubusercontent.com/69948118/223617464-b30de1d2-c2de-458d-8f17-e082262ceeb4.png)
+  
+- MANDATORY
+ ![image](https://user-images.githubusercontent.com/69948118/223617514-dc8ee2c7-7e40-4a41-8122-8ec86b51e644.png)
+ 
+ - Summary 
+ ![image](https://user-images.githubusercontent.com/69948118/223617680-937686c1-90fb-4a5c-b36f-f21909b953ca.png)
+
 #### Rollback the transaction
 - Now, let us talk about the rollback process. If the code segment inside a Transactional method throws a Runtime exception or error, the transaction is automatically rolled back by the framework.
 - In the below code snippet, a NullPointerException is thrown by the code which is a Runtime exception and hence the transaction is rolled back
@@ -182,8 +212,6 @@ public void completeOrder(OrderRequest request) { template.execute(
 @Transactional(readOnly = true)
 public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T, ID> {
 ```
----
-- https://www.javainuse.com/spring/springtrans
 
 ---
 ## Multiple Data Source in Spring Boot
