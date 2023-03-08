@@ -1,8 +1,9 @@
 # Transaction Management in Spring Boot
 
 ## Transaction Management in Spring framwork 
-[https://medium.com/javarevisited/transaction-management-in-spring-boot-eb01e20b21fe]
-[https://www.baeldung.com/spring-transactional-propagation-isolation]
+  - [https://medium.com/javarevisited/transaction-management-in-spring-boot-eb01e20b21fe]
+  - [https://www.baeldung.com/spring-transactional-propagation-isolation]
+  - [https://www.javainuse.com/spring/springtrans]
 ### There are 2 types of transaction management namely
 1. Declarative
 2. Programmatic
@@ -181,7 +182,8 @@ public void completeOrder(OrderRequest request) { template.execute(
 @Transactional(readOnly = true)
 public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T, ID> {
 ```
-
+---
+- https://www.javainuse.com/spring/springtrans
 
 ---
 ## Multiple Data Source in Spring Boot
