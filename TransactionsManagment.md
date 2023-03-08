@@ -152,6 +152,14 @@ UserRespository userRepository;
 - We can also specify rollbackFor=Exception.class to inform Spring Boot to rollback the transaction for any checked exceptions. In this way, we dont need to specify all the checked exceptions thrown by this method
 - Another way is to extend the RunTimeException and we don’t need to specify rollbackFor attribute
 
+#### Transaction Isolation
+- Transaction Isolation defines the database state when two transactions concurrently act on the same database entity. It involves locking of database records. So it describes the behaviour or state of the database when one transaction is working on database entity and then some other concurrent transaction tries to simultaneously access/edit the same database entity.
+- Dirty Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A modifies a record but not commits it. Transaction B reads this record but then Transaction A again rollbacks the changes for the record and commits it. So Transaction B has a wrong value.
+- Non-Repeatable Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A reads some records. Transaction B modifies these records before transaction A has been committed. So if Transaction A again reads these records they will be different. So same select statements result in different existing records.
+- Phantom Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A reads some records. Transaction B adds more such records before transaction A has been committed. So if Transaction A again reads there will be more records than the previous select statement. So same select statements result in different number records to be displayed as new records also get added.
+
+![image](https://user-images.githubusercontent.com/69948118/223618179-5ec21308-a606-4a7d-8277-804ec16436b9.png)
+
 ### 2. Programmatic Transaction Management
 - the Programmatic Transaction Management where developers draw the transaction boundaries inside the service class methods.
 - Let us consider the following code snippet. We make some DB calls, then we call external API and then again we make DB calls and then we make an internal API Call.
