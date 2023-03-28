@@ -8,3 +8,13 @@
 ![image](https://user-images.githubusercontent.com/69948118/228123856-e9d325dd-d274-4e2e-852a-6fcb7e267341.png)
 ![image](https://user-images.githubusercontent.com/69948118/228123886-adf225ec-d56c-46d3-b741-e4f436309d32.png)
 ![image](https://user-images.githubusercontent.com/69948118/228124056-e8a3033c-cd20-4b74-8fbd-7455e1ca1137.png)
+![image](https://user-images.githubusercontent.com/69948118/228138190-79e84217-814e-48da-a9c9-bacfd2267b28.png)
+## Template Framwork used by Spring
+![image](https://user-images.githubusercontent.com/69948118/228138333-b9bb4bf9-9587-44df-a108-aec53fecd931.png)
+![image](https://user-images.githubusercontent.com/69948118/228138838-61e6ca52-dee7-45d2-8e26-bb004366077a.png)
+## Spring handles transactions & security using AOP & proxy design
+![image](https://user-images.githubusercontent.com/69948118/228139057-ac1c5b0d-643a-4eec-b614-c1a743d4ceb5.png)
+![image](https://user-images.githubusercontent.com/69948118/228142731-15a4269e-48a9-4b8d-8d48-3199060a57d5.png)
+![image](https://user-images.githubusercontent.com/69948118/228143396-475b7ff3-15ba-4dab-96e4-365781741e7b.png)
+
+
