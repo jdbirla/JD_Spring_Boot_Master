@@ -16,5 +16,9 @@
 ![image](https://user-images.githubusercontent.com/69948118/228139057-ac1c5b0d-643a-4eec-b614-c1a743d4ceb5.png)
 ![image](https://user-images.githubusercontent.com/69948118/228142731-15a4269e-48a9-4b8d-8d48-3199060a57d5.png)
 ![image](https://user-images.githubusercontent.com/69948118/228143396-475b7ff3-15ba-4dab-96e4-365781741e7b.png)
+## Bean Configuration
 
-
+---
+# Spring Boot Tips
+- https://www.youtube.com/watch?v=2dPon1G5S-M&list=PLuNxlOYbv61jFFX2ARQKnBgkMF6DvEEic&index=1&ab_channel=SivaLabs
+![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
