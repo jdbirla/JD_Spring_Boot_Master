@@ -41,4 +41,4 @@
 - @ConstructorBinding use this annotation for configuration using constructor
 - ![image](https://user-images.githubusercontent.com/69948118/228849809-3d1982f3-53c7-4bd7-a2d2-9626d187b672.png)
 
-### Binding Properties to Java Records for Java16+
+### Binding Properties to Java Records for Java14+
