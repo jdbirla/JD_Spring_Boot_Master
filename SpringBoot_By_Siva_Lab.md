@@ -21,4 +21,24 @@
 ---
 # Spring Boot Tips
 - https://www.youtube.com/watch?v=2dPon1G5S-M&list=PLuNxlOYbv61jFFX2ARQKnBgkMF6DvEEic&index=1&ab_channel=SivaLabs
+### Autoconfiguration
+- https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
 ![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
+
+- @Value
+- @ConfigurationProperties(prefix = "app")
+- we can create internal static class in main class of property configuration and we can access
+- ![image](https://user-images.githubusercontent.com/69948118/228847353-40848010-e67d-43d4-a6b8-71f64da4a92a.png)
+
+### Validation Configuration Properties using JavaBeans validation API
+- We can use Java Bean API @NonEmpty etc on fields od property config class
+![image](https://user-images.githubusercontent.com/69948118/228848020-14567241-0466-4395-a176-5bdc825866a2.png)
+![image](https://user-images.githubusercontent.com/69948118/228848128-5a312d6b-57ba-4407-a399-2c3bcb154b4d.png)
+
+### Binding Properties to Immutable Objects using Contructor Binding
+- Property coniguration should be read only meaning no one can update those properties values later , for that we have to make that prperty class as Immutable
+- Remove all setters , fields shoud be final and create constructor
+- @ConstructorBinding use this annotation for configuration using constructor
+- ![image](https://user-images.githubusercontent.com/69948118/228849809-3d1982f3-53c7-4bd7-a2d2-9626d187b672.png)
+
+### Binding Properties to Java Records for Java16+
