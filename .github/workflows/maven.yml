@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Siva_lab/bookmarker-api
+        working-directory: ../Siva_lab/bookmarker-api
     steps:
       - uses: actions/checkout@v3
 
