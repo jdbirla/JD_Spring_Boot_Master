@@ -6,26 +6,36 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Build
 
 on:
   push:
     branches: [ "**" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
-  build:
-
+  build-bookmarker-api:
+    name: Build bookmarker-api
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./Siva_lab/bookmarker-api
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: ./mvnw verify
+
+      - if: ${{ github.ref == 'refs/heads/master' }}
+        name: Build and Publish Docker Image
+        run: |
+          ./mvnw clean package jib:dockerBuild -DskipTests
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/bookmarker-api
+
