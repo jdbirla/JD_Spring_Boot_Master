@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: /JD_Spring_Boot_Master/Siva_lab/bookmarker-api/
+        working-directory: ./JD_Spring_Boot_Master/Siva_lab/bookmarker-api/
     steps:
       - uses: actions/checkout@v3
 
@@ -30,7 +30,7 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: ./mvnw verify
+        run: mvn verify
 
       - if: ${{ github.ref == 'refs/heads/master' }}
         name: Build and Publish Docker Image
