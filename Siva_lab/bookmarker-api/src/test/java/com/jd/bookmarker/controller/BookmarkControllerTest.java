@@ -1,6 +1,11 @@
 package com.jd.bookmarker.controller;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -11,15 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-
 /**
  * Created by jd birla on 08-05-2023 at 08:36
  */
@@ -74,7 +80,7 @@ class BookmarkControllerTest {
   void shouldGetBookmarks(int pageNo, int totalElements, int totalPages, int currentPage,
       boolean isFirst, boolean isLast,
       boolean hasNext, boolean hasPrevious) throws Exception {
-    mockMvc.perform(get("http://localhost:8080/api/v1/bookmarks/getAllBookmarks?page="+pageNo))
+    mockMvc.perform(get("http://localhost:8080/api/v1/bookmarks?page="+pageNo))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.totalElements", CoreMatchers.equalTo(totalElements)))
         .andExpect(jsonPath("$.totalPages", CoreMatchers.equalTo(totalPages)))
@@ -84,5 +90,44 @@ class BookmarkControllerTest {
         .andExpect(jsonPath("$.hasNext", CoreMatchers.equalTo(hasNext)))
         .andExpect(jsonPath("$.hasPrevious", CoreMatchers.equalTo(hasPrevious)))
     ;
+  }
+  @Test
+  void shouldCreateBookmarkSuccessfully() throws Exception {
+    this.mockMvc.perform(
+            post("/api/v1//bookmarks")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+            {
+                "title": "SivaLabs Blog",
+                "url": "https://sivalabs.in"
+            }
+            """)
+        )
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.id", notNullValue()))
+        .andExpect(jsonPath("$.title", is("SivaLabs Blog")))
+        .andExpect(jsonPath("$.url", is("https://sivalabs.in")));
+  }
+
+  @Test
+  void shouldFailToCreateBookmarkWhenUrlIsNotPresent() throws Exception {
+    this.mockMvc.perform(
+            post("/api/v1//bookmarks")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                    "title": "SivaLabs Blog"
+                }
+                """)
+        )
+        .andExpect(status().isBadRequest())
+        .andExpect(header().string("Content-Type", is("application/problem+json")))
+        .andExpect(jsonPath("$.type", is("https://zalando.github.io/problem/constraint-violation")))
+        .andExpect(jsonPath("$.title", is("Constraint Violation")))
+        .andExpect(jsonPath("$.status", is(400)))
+        .andExpect(jsonPath("$.violations", hasSize(1)))
+        .andExpect(jsonPath("$.violations[0].field", is("url")))
+        .andExpect(jsonPath("$.violations[0].message", is("Url should not be empty")))
+        .andReturn();
   }
 }
