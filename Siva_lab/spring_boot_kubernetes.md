@@ -26,3 +26,21 @@
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/77125ccc-a690-4264-9c5d-74cbccabd190)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/d1444baf-9f57-4a77-8ee5-379efcdbcaa2)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/e0ef1ce8-5c7a-4a5d-b606-d4658c8f3b39)
+### Install Kind
+- To install KinD on Windows 10, you can follow these steps:
+
+- Install Docker Desktop for Windows by downloading it from the Docker website.
+
+- After installation, launch Docker Desktop and go to "Settings" followed by "Resources" and then "WSL Integration."
+
+- Make sure that "Enable integration with my default WSL distro" is checked, and select the WSL distribution you have.
+
+- Open PowerShell as an administrator.
+
+- Install Chocolatey package manager by running the following command:
+```
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+-  Install KinD using the following command:
+``` choco install kind ```
+- To confirm the installation, run the command `kind version` in PowerShell.
