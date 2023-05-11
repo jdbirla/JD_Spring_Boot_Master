@@ -44,3 +44,5 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 -  Install KinD using the following command:
 ``` choco install kind ```
 - To confirm the installation, run the command `kind version` in PowerShell.
+
+
