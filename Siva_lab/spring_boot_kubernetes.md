@@ -44,5 +44,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 -  Install KinD using the following command:
 ``` choco install kind ```
 - To confirm the installation, run the command `kind version` in PowerShell.
-
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/02888ba0-6287-4e44-8bbb-693b0a3cc82b)
+### Install k8s Lens
+- k8sLens desktop exe and install it
 
