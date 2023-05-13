@@ -48,3 +48,4 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 ### Install k8s Lens
 - k8sLens desktop exe and install it
 
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/fc7a3800-dc2d-4705-9529-76e5e150370b)
