@@ -177,7 +177,57 @@ info.app.java.source=@java.version@
 info.app.java.target=@java.version@
 ```
 
-### 
+### Monitoring Spring Boot Application by Spring Boot Admin
+- https://github.com/sivaprasadreddy/sivalabs-youtube-code-samples/tree/main/spring-boot-admin-server
+- https://github.com/codecentric/spring-boot-admin
+- Add Spring Boot Admin Server starter to your dependencies:
+```xml
+<dependency>
+    <groupId>de.codecentric</groupId>
+    <artifactId>spring-boot-admin-starter-server</artifactId>
+    <version>3.0.4</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+```java
+@SpringBootApplication
+@EnableAdminServer
+public class SpringBootAdminServerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootAdminServerApplication.class, args);
+    }
+
+}
+```
+- Add spring-boot-admin-starter-client to your dependencies:
+
+```xml
+<dependency>
+    <groupId>de.codecentric</groupId>
+    <artifactId>spring-boot-admin-starter-client</artifactId>
+    <version>3.0.4</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+ ```
+ ```
+ spring.boot.admin.client.url=http://localhost:8080  (1)
+management.endpoints.web.exposure.include=*  (2)
+management.info.env.enabled=true (3)
+```
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/cc2edcd7-86f1-41c3-a1c5-2bc27d3f2989)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/16f06751-d04b-4696-95af-0e91c918380d)
+
+### Generating Swagger docs for SpringBoot REST APIs
+
+
+
 
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
