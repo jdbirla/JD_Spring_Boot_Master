@@ -45,6 +45,7 @@
 - We can bind propertiy files with Record from jdk16+
 
 ### Logging Tips
+- https://github.com/sivaprasadreddy/sivalabs-youtube-code-samples/tree/main/spring-boot-logging
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/4aad686d-3cb2-4f88-ab8d-13ee539ca279)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/3d1b331c-1ece-4ba3-9b28-deb2fd669095)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/ffd79c35-e082-40a3-a51b-bd663a05f373)
@@ -54,9 +55,51 @@
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/23b30ab6-e39a-48c0-ba5f-664b31750a29)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/17dc8ce1-3d7f-41f3-8dd7-fb78b3c075fe)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/22cbef17-33c5-4e71-aaaa-020005188780)
+#### Mapped Daignostic COntext
+- By using the MDC, you can enrich log statements with contextual information such as user identifiers, request IDs, session IDs, transaction IDs, or any other relevant data that can help in understanding the log events in the context of the application's execution flow.
+- https://howtodoinjava.com/logback/logging-with-mapped-diagnostic-context
+```xml
+<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> 
+  <layout>
+    <Pattern>%d{DATE} %p %X{sessionId} %X{userId} %c - %m%n</Pattern>
+  </layout> 
+</appender>
+ ```
+ ```
+#logging.level.root=INFO
+#logging.level.com.sivalabs=TRACE
+#logging.pattern.console=%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(UserId:%X{UserId:-Guest}){magenta} %clr(Context:%X){magenta}  %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n
+#logging.file.name=myapp.log
+ ```
+```xml
+<configuration>
+    <springProperty scope="context" name="region" source="app.region" defaultValue="us-east-1"/>
+    <property name="LOG_FILE" value="${region}-myapp.log"/>
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(UserId:%X{UserId:-Guest}){magenta} %clr(Context:%X){magenta}  %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n ${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [UserId:%X{UserId:-Guest}] [Context:%X] --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
 
+    <springProfile name="local">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+    </springProfile>
 
+    <springProfile name="!local">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+    <logger name="com.sivalabs" level="DEBUG"/>
+    <logger name="org.springframework" level="INFO"/>
+</configuration>
+```
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/9a254218-58d6-46de-93e6-3b5b71ac6d76)
 
 
 
