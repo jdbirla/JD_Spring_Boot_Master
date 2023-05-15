@@ -30,6 +30,30 @@
 ![image](https://user-images.githubusercontent.com/69948118/236759064-de7ec436-e35a-47f3-893f-0ab02b4bc357.png)
 ![image](https://user-images.githubusercontent.com/69948118/236759323-914567cc-e0db-4889-a76d-5cbd909c7665.png)
 
+
+### Autoconfiguration
+- https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
+![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
+
+- @Value
+- @ConfigurationProperties(prefix = "app")
+- we can create internal static class in main class of property configuration and we can access
+- ![image](https://user-images.githubusercontent.com/69948118/228847353-40848010-e67d-43d4-a6b8-71f64da4a92a.png)
+
+### Validation Configuration Properties using JavaBeans validation API
+- We can use Java Bean API @NonEmpty etc on fields od property config class
+![image](https://user-images.githubusercontent.com/69948118/228848020-14567241-0466-4395-a176-5bdc825866a2.png)
+![image](https://user-images.githubusercontent.com/69948118/228848128-5a312d6b-57ba-4407-a399-2c3bcb154b4d.png)
+
+### Binding Properties to Immutable Objects using Contructor Binding
+- Property coniguration should be read only meaning no one can update those properties values later , for that we have to make that prperty class as Immutable
+- Remove all setters , fields shoud be final and create constructor
+- @ConstructorBinding use this annotation for configuration using constructor
+- ![image](https://user-images.githubusercontent.com/69948118/228849809-3d1982f3-53c7-4bd7-a2d2-9626d187b672.png)
+
+### Binding Properties to Java Records for Java14+
+
+
 ---
 ## Spring Boot Tips
 - https://www.youtube.com/watch?v=2dPon1G5S-M&list=PLuNxlOYbv61jFFX2ARQKnBgkMF6DvEEic&index=1&ab_channel=SivaLabs
@@ -225,28 +249,72 @@ management.info.env.enabled=true (3)
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/16f06751-d04b-4696-95af-0e91c918380d)
 
 ### Generating Swagger docs for SpringBoot REST APIs
+- https://github.com/sivaprasadreddy/sivalabs-youtube-code-samples/tree/main/spring-boot-openapi-swagger
+- swagger docs can be generate by two libs sprningFox and OpenApi
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/15f5a781-8569-473e-ba25-a9538ebb62f3)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/0aa6c14d-b2af-48a7-acf3-ece5c28597b8)
+```
+ <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.9</version>
+        </dependency>
+ ```
+ - For secutiry authorization at global
+ ```java
+ @Configuration
+@OpenAPIDefinition(info = @Info(title = "SpringBoot Tips API", version = "v1"))
+@SecurityScheme(
+        name = "jwtBearerAuth",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
+public class SwaggerConfig {
+}
+```
+```java
+
+@RestController
+@RequestMapping("/api/bookmarks")
+@RequiredArgsConstructor
+@SecurityRequirement(name = "jwtBearerAuth")
+@Tag(name = "Bookmarks")
+public class BookmarkController {
+    private final BookmarkService bookmarkService;
+
+    @GetMapping
+    public List<Bookmark> getAllBookmarks() {
+        return bookmarkService.getAllBookmarks();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Bookmark> getBookmarkById(@PathVariable Long id) {
+        Bookmark bookmark = bookmarkService.getBookmarkById(id);
+        return ResponseEntity.ok(bookmark);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@Operation(description = "Create a new bookmark", security = @SecurityRequirement(name = "jwtBearerAuth"))
+    @ApiResponses(
+            value = {
+                    @ApiResponse(description = "Successfully created new bookmark", responseCode = "201"),
+                    @ApiResponse(description = "Forbidden", responseCode = "403"),
+            }
+    )
+    public Bookmark createBookmark(@RequestBody @Valid Bookmark bookmark) {
+        return bookmarkService.createBookmark(bookmark);
+    }
+
+}
+ ```
 
 
 
 
-### Autoconfiguration
-- https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
-![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
 
-- @Value
-- @ConfigurationProperties(prefix = "app")
-- we can create internal static class in main class of property configuration and we can access
-- ![image](https://user-images.githubusercontent.com/69948118/228847353-40848010-e67d-43d4-a6b8-71f64da4a92a.png)
 
-### Validation Configuration Properties using JavaBeans validation API
-- We can use Java Bean API @NonEmpty etc on fields od property config class
-![image](https://user-images.githubusercontent.com/69948118/228848020-14567241-0466-4395-a176-5bdc825866a2.png)
-![image](https://user-images.githubusercontent.com/69948118/228848128-5a312d6b-57ba-4407-a399-2c3bcb154b4d.png)
 
-### Binding Properties to Immutable Objects using Contructor Binding
-- Property coniguration should be read only meaning no one can update those properties values later , for that we have to make that prperty class as Immutable
-- Remove all setters , fields shoud be final and create constructor
-- @ConstructorBinding use this annotation for configuration using constructor
-- ![image](https://user-images.githubusercontent.com/69948118/228849809-3d1982f3-53c7-4bd7-a2d2-9626d187b672.png)
 
-### Binding Properties to Java Records for Java14+
