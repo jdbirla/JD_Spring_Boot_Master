@@ -43,7 +43,25 @@
 - environment variables ex.  SERVER_PORT=9090
 - we can validate property file fields using @Validate
 - We can bind propertiy files with Record from jdk16+
-- 
+
+### Logging Tips
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/4aad686d-3cb2-4f88-ab8d-13ee539ca279)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/3d1b331c-1ece-4ba3-9b28-deb2fd669095)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/ffd79c35-e082-40a3-a51b-bd663a05f373)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/e8244d02-b255-4b02-807e-1d37acbc36ef)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/5ce9a1bb-e87c-4915-9ae8-558854f8ec72)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/4b6f61b7-aec7-4e11-ac19-4ab2275af3d1)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/23b30ab6-e39a-48c0-ba5f-664b31750a29)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/17dc8ce1-3d7f-41f3-8dd7-fb78b3c075fe)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/22cbef17-33c5-4e71-aaaa-020005188780)
+
+
+
+
+
+
+
+
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
 ![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
