@@ -33,7 +33,7 @@
 ---
 ## Spring Boot Tips
 - https://www.youtube.com/watch?v=2dPon1G5S-M&list=PLuNxlOYbv61jFFX2ARQKnBgkMF6DvEEic&index=1&ab_channel=SivaLabs
-
+- https://github.com/sivaprasadreddy/sivalabs-youtube-code-samples
 ### Dependecy Managment
 - Dependecymanagment tag : we can exclude any transative dependency and we can define in parent project as POM 
 
@@ -125,7 +125,20 @@ class ProductControllerTest {
 }
 ```
 
-### 
+### IT using TestContainers
+
+### Exception Handling in spring boot
+- https://github.com/sivaprasadreddy/sivalabs-youtube-code-samples/tree/main/spring-boot-exception-handling
+- Web project exception handling
+- Customize white error page using template
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/b3ab8c4c-2ef4-4126-8059-1a189e0d7038)
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/bc042250-a55b-44ac-b734-1092582b6eb4)
+- Rest exception handling
+- Customize error response payload using @ExceptionHandler
+- @ControllerAdvice or @RestControllerAdvice
+
+### Exception Handling using problem-spring-web
+- 
 
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
