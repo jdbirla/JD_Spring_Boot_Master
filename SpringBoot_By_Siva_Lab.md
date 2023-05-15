@@ -138,7 +138,24 @@ class ProductControllerTest {
 - @ControllerAdvice or @RestControllerAdvice
 
 ### Exception Handling using problem-spring-web
-- 
+- https://github.com/zalando/problem-spring-web
+- When add this starter dependecy in project will get exception handling by default with proper http status code and message
+- Internally usinbg ProblemAutoconfiguration
+```java
+@RestControllerAdvice
+class ExceptionHandling implements ProblemHandling {
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handle(CustomerNotFoundException e, NativeWebRequest request) {
+        ThrowableProblem problem = Problem.builder().withStatus(Status.NOT_FOUND)
+                .withTitle("Customer Not Found")
+                .withDetail(e.getMessage())
+                .build();
+        return create(problem, request);
+    }
+}
+```
+
 
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
