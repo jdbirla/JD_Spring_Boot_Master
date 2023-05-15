@@ -41,7 +41,9 @@
 - Default Values ex. applicartion.properties
 - Profile specific overrides ex. application-{profie}.properties
 - environment variables ex.  SERVER_PORT=9090
-
+- we can validate property file fields using @Validate
+- We can bind propertiy files with Record from jdk16+
+- 
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
 ![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
