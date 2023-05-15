@@ -101,9 +101,31 @@
 ```
 ![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/9a254218-58d6-46de-93e6-3b5b71ac6d76)
 
+### Testing
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/784c1191-45e9-4169-b8ea-fbc7a11ed13f)
 
+- @WebMvcTest
+```java
+@WebMvcTest(controllers = ProductController.class)
+class ProductControllerTest {
 
+    @MockBean
+    private ProductService productService;
 
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void shouldReturnActiveProducts() throws Exception {
+        BDDMockito.given(productService.getAllProducts()).willReturn(List.of());
+
+        mockMvc.perform(get("/api/products"))
+                .andExpect(status().isOk());
+    }
+}
+```
+
+### 
 
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
