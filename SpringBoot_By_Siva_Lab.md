@@ -3,7 +3,7 @@
 - [Spring Boot Tips](#spring-boot-tips)
 
 
-# Spring Boot The Missing Guide
+## Spring Boot The Missing Guide
 - https://www.youtube.com/watch?v=3tTS8rwV7zQ&list=PLuNxlOYbv61jZL1IiciTgWezZoqEp4WXh&index=1&ab_channel=SivaLabs
 
 
@@ -31,8 +31,17 @@
 ![image](https://user-images.githubusercontent.com/69948118/236759323-914567cc-e0db-4889-a76d-5cbd909c7665.png)
 
 ---
-# Spring Boot Tips
+## Spring Boot Tips
 - https://www.youtube.com/watch?v=2dPon1G5S-M&list=PLuNxlOYbv61jFFX2ARQKnBgkMF6DvEEic&index=1&ab_channel=SivaLabs
+
+### Dependecy Managment
+- Dependecymanagment tag : we can exclude any transative dependency and we can define in parent project as POM 
+
+### Managing application configuration
+- Default Values ex. applicartion.properties
+- Profile specific overrides ex. application-{profie}.properties
+- environment variables ex.  SERVER_PORT=9090
+
 ### Autoconfiguration
 - https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.external-config
 ![image](https://user-images.githubusercontent.com/69948118/228201235-922a73a3-3a38-45c7-9681-9731e9f45fc6.png)
