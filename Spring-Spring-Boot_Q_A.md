@@ -5,7 +5,7 @@
 
 - [Spring , SpringBoot Inerview Questions and Answers](#spring--springboot-inerview-questions-and-answers)
   - [Spring](#spring)
-  - [- Singleton beans can be different instances in different Spring contexts (e.g., in a parent-child context relationship).](#--singleton-beans-can-be-different-instances-in-different-spring-contexts-eg-in-a-parent-child-context-relationship)
+  - [Singleton beans can be different instances in different Spring contexts (e.g., in a parent-child context relationship).](#--singleton-beans-can-be-different-instances-in-different-spring-contexts-eg-in-a-parent-child-context-relationship)
   - [Spring MVC](#spring-mvc)
   - [SpringBoot](#springboot)
   - [Database Connectivity - JDBC, Spring JDBC & JPA](#database-connectivity---jdbc-spring-jdbc--jpa)
@@ -14,8 +14,7 @@
   - [AOP](#aop)
   - [SOAP Web Services](#soap-web-services)
   - [RESTful Web Services](#restful-web-services)
- 
-  - 
+
 ## Spring
 
 **1. What is Loose Coupling?**
