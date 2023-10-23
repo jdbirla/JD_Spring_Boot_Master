@@ -1719,4 +1719,205 @@ You can then access these properties in your application code.
         }
     }
     ```
+---
+## Database Connectivity - JDBC, Spring JDBC & JPA
 
+**1. What is Spring JDBC? How is it different from JDBC?**
+
+   - **Spring JDBC** is a module within the Spring Framework that simplifies database operations by providing higher-level abstractions and a more intuitive API compared to plain **JDBC** (Java Database Connectivity). Spring JDBC offers features like exception handling, connection management, and query execution, making it easier to work with databases. Here's an example of a simple Spring JDBC template to query a database:
+
+   ```java
+   JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+   String sql = "SELECT name FROM customers WHERE id = ?";
+   String name = jdbcTemplate.queryForObject(sql, String.class, 1);
+   ```
+
+**2. What is a JdbcTemplate?**
+
+   - **JdbcTemplate** is a central class in Spring JDBC that simplifies database operations. It provides methods for common database tasks, such as executing SQL queries, updates, and stored procedures. A `JdbcTemplate` instance is typically configured with a data source and used for database interactions in a Spring application.
+
+**3. What is a RowMapper?**
+- A **RowMapper** is an interface in Spring JDBC used to map the result set of a database query to Java objects. It defines a method `mapRow` that takes a `ResultSet` and an integer representing the row number. You can implement a custom `RowMapper` to specify how to map database rows to domain objects. Here's an example:
+
+   ```java
+   public class CustomerRowMapper implements RowMapper<Customer> {
+       @Override
+       public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
+           Customer customer = new Customer();
+           customer.setId(rs.getInt("id"));
+           customer.setName(rs.getString("name"));
+           return customer;
+       }
+   }
+   ```
+
+**4. What is JPA?**
+
+   - **JPA** (Java Persistence API) is a standard specification for object-relational mapping in Java. It provides a set of interfaces and annotations to map Java objects to relational database tables and simplifies database access in Java applications. JPA implementations like Hibernate, EclipseLink, and OpenJPA adhere to this standard.
+
+**5. What is Hibernate?**
+ - **Hibernate** is an open-source JPA implementation and one of the most popular object-relational mapping frameworks. It allows developers to work with Java objects while transparently persisting data in a relational database. You can define mappings between Java classes and database tables using Hibernate's annotations or XML configurations.
+
+**6. How do you define an entity in JPA?**
+- In JPA, an entity is a Java class that is mapped to a database table. To define an entity, you annotate the class with `@Entity`. Additionally, you can specify the table name and primary key using annotations like `@Table` and `@Id`. Here's an example:
+
+   ```java
+   @Entity
+   @Table(name = "customers")
+   public class Customer {
+       @Id
+       @GeneratedValue(strategy = GenerationType.IDENTITY)
+       private Long id;
+       private String name;
+       // Getters and setters
+   }
+   ```
+
+**7. What is an Entity Manager?**
+- An **Entity Manager** is a core component in JPA responsible for managing entities' lifecycle, including persistence (saving, updating, and deleting), retrieving entities, and maintaining the entity's state. You can use the `EntityManager` to interact with the database and execute JPQL (Java Persistence Query Language) queries.
+
+**8. What is a Persistence Context?**
+- A **Persistence Context** is a concept in JPA that represents a set of managed entities and their associated state. It acts as a unit of work and ensures that changes to entities are tracked and synchronized with the database. The `EntityManager` is responsible for managing the persistence context.
+
+**9. How do you map relationships in JPA?**
+- Relationships in JPA are mapped using annotations like `@OneToOne`, `@OneToMany`, `@ManyToOne`, and `@ManyToMany`. These annotations define the association between entities, specifying how they are related in the database.
+
+**10. What are the different types of relationships in JPA?**
+- JPA supports various types of relationships, including:
+      - **One-to-One**
+      - **One-to-Many**
+      - **Many-to-One**
+      - **Many-to-Many**
+
+**11. How do you define One-to-One Mapping in JPA?**
+- In a One-to-One mapping, you annotate a field in one entity with `@OneToOne` and use the `mappedBy` attribute to specify the corresponding field in the other entity. Here's an example:
+
+   ```java
+   @Entity
+   public class Person {
+       @Id
+       @GeneratedValue
+       private Long id;
+       private String name;
+       @OneToOne(mappedBy = "person")
+       private Address address;
+   }
+   
+   @Entity
+   public class Address {
+       @Id
+       @GeneratedValue
+       private Long id;
+       private String street;
+       @OneToOne
+       @JoinColumn(name = "person_id")
+       private Person person;
+   }
+   ```
+
+**12. How do you define One-to-Many Mapping in JPA?**
+- In a One-to-Many mapping, you annotate a field in one entity with `@OneToMany`, and the other entity is annotated with `@ManyToOne`. A foreign key in the "many" side is used to establish the relationship. Here's an example:
+
+   ```java
+   @Entity
+   public class Department {
+       @Id
+       @GeneratedValue
+       private Long id;
+       private String name;
+       @OneToMany(mappedBy = "department")
+       private List<Employee> employees;
+   }
+   
+   @Entity
+   public class Employee {
+       @Id
+       @GeneratedValue
+       private Long id;
+       private String name;
+       @ManyToOne
+       @JoinColumn(name = "department_id")
+       private Department department;
+   }
+   ```
+
+**13. How do you define Many-to-Many Mapping in JPA?**
+- In a Many-to-Many mapping, you annotate both entities with `@ManyToMany`. You also specify a join table using the `@JoinTable` annotation to define the relationship between the two entities. Here's an example:
+
+   ```java
+   @Entity
+   public class Student {
+       @Id
+       @GeneratedValue
+       private Long id;
+       private String name;
+       @ManyToMany
+       @JoinTable(name = "student_course",
+           joinColumns = @JoinColumn(name = "student_id"),
+           inverseJoinColumns = @JoinColumn(name = "course_id"))
+       private Set<Course> courses;
+   }
+   
+   @Entity
+   public class Course {
+       @Id
+       @GeneratedValue
+       private Long id;
+       private String name;
+       @ManyToMany(mappedBy = "courses")
+       private Set<Student> students;
+   }
+   ```
+
+**14. How do you define a datasource in a Spring Context?**
+- You can define a datasource in a Spring application context by configuring a `DataSource` bean. For example, using Apache Commons DBCP2 as a connection pool:
+
+   ```xml
+   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+       <property name="url" value="jdbc:mysql://localhost:3306/mydb" />
+       <property name="username" value="user" />
+       <property name="password" value="password" />
+   </bean>
+   ```
+
+   In a Spring Boot application, you can configure the datasource in the `application.properties` or `application.yml` file.
+
+**15. What is the use of persistence.xml?**
+- `persistence.xml` is a configuration file used in JPA to define persistence units and their properties. It specifies the JPA provider, database connection details, and entity classes. It's typically located in the `META-INF` directory of the application's classpath.
+
+**16. How do you configure Entity Manager Factory and Transaction Manager?**
+- In a Spring application, you can configure the `EntityManagerFactory` and `TransactionManager` beans. For example, using Spring Boot:
+
+   ```java
+   @Bean
+   public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder, DataSource dataSource) {
+       return builder
+           .dataSource(dataSource)
+           .packages("com.example.domain") // Package where your entities are located
+           .persistenceUnit("myUnit")
+           .build();
+   }
+
+   @Bean
+   public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+       return new JpaTransactionManager(entityManagerFactory);
+   }
+   ```
+
+**17. How do you define transaction management for Spring – Hibernate integration?**
+- In Spring, you can enable transaction management for Hibernate integration by annotating service methods with `@Transactional`. Spring's `@Transactional` annotation works seamlessly with Hibernate's `Session` and manages transactions. For example:
+
+   ```java
+   @Service
+   public class UserService {
+       @Autowired
+       private SessionFactory sessionFactory;
+
+       @Transactional
+       public void saveUser(User user) {
+           Session session = sessionFactory.getCurrentSession();
+           session.save(user);
+       }
+   }
+   ```
