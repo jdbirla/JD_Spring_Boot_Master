@@ -1385,7 +1385,6 @@ The combination of these factors has contributed to Spring's popularity, making 
 **48. Can you give a big picture of the Spring Framework?**
 
 **1.
-
  Core Container:**
 - At the heart of the Spring Framework is the Core Container, which provides the foundational building blocks for your applications.
 - The Core Container consists of two key components: the Inversion of Control (IoC) container and the Dependency Injection (DI) container.
@@ -1451,7 +1450,7 @@ The combination of these factors has contributed to Spring's popularity, making 
 - Spring remains responsive to industry trends and continuously introduces features aligned with evolving best practices in software development.
 
 ---
-## SPring MVC
+## Spring MVC
 Certainly! Here are detailed answers with examples for your Spring MVC questions:
 
 **1. What is Model 1 architecture?**
@@ -1558,4 +1557,190 @@ Certainly! Here are detailed answers with examples for your Spring MVC questions
 **22. Why is Spring MVC so popular?**
     - Spring MVC is popular due to its robust architecture, ease of use, and features that simplify web application development. It promotes separation of concerns, modularity, testability, and integration with various technologies, making it a preferred choice for building web applications in Java.
 
-These answers should provide a comprehensive understanding of Spring MVC, its architecture, key concepts, and how to work with it effectively.
+---
+## SpringBoot
+
+**1. What is Spring Boot?**
+
+   - Spring Boot is an open-source project within the Spring ecosystem that simplifies the setup, configuration, and development of Spring applications. It offers a wide range of features and conventions for building production-ready applications with minimal effort.
+
+**2. What are the important Goals of Spring Boot?**
+
+   - The key goals of Spring Boot are:
+     - Simplify Spring application development.
+     - Provide production-ready default configurations.
+     - Offer a wide range of pre-built functionality.
+     - Minimize the need for XML configuration and boilerplate code.
+
+**3. What are the important Features of Spring Boot?**
+
+   - Important features of Spring Boot include:
+     - **Auto-Configuration**: Automatically configures components based on classpath and dependencies.
+     - **Standalone**: Allows building standalone applications with embedded servers.
+     - **Opinionated Defaults**: Provides sensible defaults for configuration.
+     - **Microservices Support**: Streamlines the development of microservices.
+     - **Production-Ready**: Built-in features for monitoring and management.
+
+**4. Compare Spring Boot vs. Spring?**
+
+   - **Spring**: A comprehensive framework for building Java applications.
+   - **Spring Boot**: A project within the Spring ecosystem focused on simplifying Spring application development. It provides opinionated defaults and auto-configuration.
+
+**5. Compare Spring Boot vs. Spring MVC?**
+
+   - **Spring Boot**: A framework for simplifying the setup and configuration of Spring applications.
+   - **Spring MVC**: A part of the Spring Framework focused on building web applications. Spring Boot can be used to quickly set up Spring MVC applications.
+
+**6. What is the importance of @SpringBootApplication?**
+
+   - The `@SpringBootApplication` annotation is a meta-annotation that combines `@Configuration`, `@ComponentScan`, and `@EnableAutoConfiguration`. It's often used on the main class of a Spring Boot application. Here's an example:
+
+   ```java
+   @SpringBootApplication
+   public class MyApplication {
+       public static void main(String[] args) {
+           SpringApplication.run(MyApplication.class, args);
+       }
+   }
+   ```
+
+   This annotation sets up key configurations and enables Spring Boot's auto-configuration features.
+
+**7. What is Auto Configuration?**
+
+   - Auto Configuration in Spring Boot is a powerful feature that automatically configures your application based on the libraries on the classpath and your application's dependencies. It eliminates much of the manual configuration that would be required in a traditional Spring application.
+
+**8. How can we find more information about Auto Configuration?**
+
+   - You can find detailed information about Spring Boot's auto-configuration by exploring the official Spring Boot documentation. It describes how auto-configuration works and provides insights into various available auto-configurations.
+
+**9. What is an embedded server? Why is it important?**
+
+   - An embedded server is a web server bundled with your application, making it self-contained and independent of external server setups. It's important because it simplifies deployment and eliminates the need for external server configuration, making your application easier to run and distribute.
+
+**10. What is the default embedded server with Spring Boot?**
+
+    - The default embedded server with Spring Boot is Apache Tomcat. It's automatically included when you create a new Spring Boot project.
+
+**11. What are the other embedded servers supported by Spring Boot?**
+
+    - Spring Boot supports various embedded servers, including Jetty and Undertow. You can easily switch to another embedded server by adding the corresponding dependency to your project.
+
+**12. What are Starter Projects?**
+
+    - Starter Projects are opinionated templates provided by Spring Boot. They include pre-configured sets of dependencies, which simplify the setup of various types of applications. Starter Projects are designed to get you started quickly with common use cases.
+
+**13. Can you give examples of important starter projects?**
+
+    - Some important Starter Projects include:
+      - `spring-boot-starter-web`: Used for building web applications.
+      - `spring-boot-starter-data-jpa`: For data access with JPA.
+      - `spring-boot-starter-security`: Adds security features.
+      - `spring-boot-starter-actuator`: Includes production monitoring tools.
+
+**14. What is Starter Parent?**
+
+    - Starter Parent is a special POM (Project Object Model) that defines common configurations and dependencies for all Spring Boot Starter Projects. It enforces consistent versions and dependency management, ensuring that all Starter Projects work together seamlessly.
+
+**15. What are the different things that are defined in Starter Parent?**
+
+    - In Starter Parent, you'll find definitions for common properties, dependencies, and plugin configurations. This shared configuration ensures that all Starter Projects have compatible libraries and versions.
+
+**16. How does Spring Boot enforce common dependency management for all its Starter projects?**
+
+    - Spring Boot enforces common dependency management by providing a parent POM (Starter Parent) that defines dependencies with specific versions. Starter projects inherit from this parent POM, ensuring that they all use the same versions of libraries. This consistency reduces the likelihood of version conflicts.
+
+**17. What is Spring Initializr?**
+
+    - Spring Initializr is a web-based tool provided by the Spring team to generate Spring Boot projects. It allows you to choose the project's configuration, including dependencies, packaging, and version, and then generates a ready-to-use project structure.
+
+**18. What is application.properties?**
+
+    - `application.properties` is a configuration file used in Spring Boot to specify properties that control various aspects of your application's behavior. It's an integral part of Spring Boot's externalized configuration approach.
+
+**19. What are some of the important things that can be customized in application.properties?**
+
+    - You can customize numerous aspects of your application in `application.properties`, including server configuration (e.g., port, context path), database settings, logging configuration (e.g., log levels, file paths), and other application-specific properties.
+
+**20. How do you externalize configuration using Spring Boot?**
+
+    - You can externalize configuration in Spring Boot by placing properties in external configuration files like `application.properties` or `application.yml`. These files can be located outside your application's JAR/WAR, making it easier to customize the application for different environments.
+
+**21. How can you add custom application properties using Spring Boot?**
+
+    - To add custom properties, simply define them in your `application.properties` file, using the format `key=value`. For example:
+
+    ```properties
+    custom.property=value
+    ```
+
+    You can then access these properties in your application code.
+
+**22. What is @ConfigurationProperties?**
+
+    - `@ConfigurationProperties` is an annotation that binds external configuration properties to Java objects. It allows you to create strongly typed configuration objects, providing better type safety and code readability. Here's an example:
+
+    ```java
+    @Component
+    @ConfigurationProperties(prefix = "custom")
+    public class CustomProperties {
+        private String property;
+
+        // Getter and setter methods
+    }
+    ```
+
+    This object is automatically populated with properties from `application.properties` that start with the prefix "custom."
+
+**23. What is a profile?**
+
+    - A profile in Spring Boot is a named set of configurations that allow you to customize your application for different environments (e.g., development, testing, production). You can activate a specific profile at runtime to load the corresponding configuration.
+
+**24. How do
+
+ you define beans for a specific profile?**
+
+    - To define beans for a specific profile, you can use the `@Profile` annotation on configuration classes or bean methods. For example, to create beans specific to the "dev" profile:
+
+    ```java
+    @Configuration
+    @Profile("dev")
+    public class DevelopmentConfig {
+        // Define beans for the "dev" profile
+    }
+    ```
+
+**25. How do you create application configuration for a specific profile?**
+
+    - Create profile-specific property files following the naming convention `application-{profile}.properties` (e.g., `application-dev.properties`). Spring Boot will automatically load the properties for the active profile.
+
+**26. How do you have different configuration for different environments?**
+
+    - Use profiles to define separate configuration properties for different environments. By activating the appropriate profile, Spring Boot loads the associated configuration, ensuring different settings for each environment.
+
+**27. What is Spring Boot Actuator?**
+
+    - Spring Boot Actuator is a set of production-ready features that provide insights and management capabilities for your application. It includes built-in endpoints for health checks, metrics, and environment information.
+
+**28. How do you monitor web services using Spring Boot Actuator?**
+
+    - To monitor web services using Actuator, you can access endpoints like `/actuator/health` and `/actuator/metrics`. These endpoints provide information about the application's health and performance.
+
+**29. How do you find more information about your application environment using Spring Boot?**
+
+    - Use Actuator's `/actuator/env` endpoint to access details about your application's environment, including properties and system information.
+
+**30. What is a CommandLineRunner?**
+
+    - `CommandLineRunner` is an interface that allows you to run custom code when your Spring Boot application starts. Implement the `run` method to perform tasks like database initialization, data loading, or any custom setup:
+
+    ```java
+    @Component
+    public class MyCommandLineRunner implements CommandLineRunner {
+        @Override
+        public void run(String... args) throws Exception {
+            // Your custom initialization code here
+        }
+    }
+    ```
+
