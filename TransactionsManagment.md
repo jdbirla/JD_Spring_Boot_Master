@@ -276,6 +276,16 @@ In this example, the `activateUser` method of the `UserService` class is annotat
 In some cases, you might use both annotations together. For example, you could have a service method annotated with `@Transactional` that calls a repository method annotated with `@Modifying` to update data and manage the transaction around it.
 
 Remember that `@Transactional` can also be used at the class level, so all methods within the class will have a transaction applied, whereas `@Modifying` is specific to individual methods that perform write operations.
+
+- If you use an update query with `@Query` in Spring Data JPA without the `@Modifying` annotation, it may compile and execute successfully, but it will not update the database as expected. Here's what will happen:
+
+1. Compilation: The code will compile without any issues. Spring Data JPA allows you to define custom queries with `@Query`, even for update or delete operations.
+
+2. Execution: When you call the `activateUser` method, the JPQL query is executed, and it will modify the database in memory, but the changes won't be flushed to the database. In other words, the changes will not be persisted to the underlying database.
+
+3. Transactional Behavior: If this method is called within a transaction (e.g., if the calling method or service method is annotated with `@Transactional`), the changes made by the query will be treated as part of that transaction, but they won't be saved to the database. In the context of a transaction, you might not see the immediate effects of the query, and any changes made will be rolled back when the transaction is committed or rolled back.
+
+In summary, without the `@Modifying` annotation, the update query will not have the desired effect of persisting the changes to the database. To ensure that the changes are actually committed to the database, you should use `@Modifying` along with `@Query` to explicitly inform Spring Data JPA that this method performs a database modification, and the changes should be flushed to the database.
 ---
 ## Multiple Data Source in Spring Boot
 ![image](https://user-images.githubusercontent.com/69948118/224540691-999a5fea-7b41-4887-9bf0-b5bbe4ff8eca.png)
