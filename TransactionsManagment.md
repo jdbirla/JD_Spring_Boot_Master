@@ -286,6 +286,7 @@ Remember that `@Transactional` can also be used at the class level, so all metho
 3. Transactional Behavior: If this method is called within a transaction (e.g., if the calling method or service method is annotated with `@Transactional`), the changes made by the query will be treated as part of that transaction, but they won't be saved to the database. In the context of a transaction, you might not see the immediate effects of the query, and any changes made will be rolled back when the transaction is committed or rolled back.
 
 In summary, without the `@Modifying` annotation, the update query will not have the desired effect of persisting the changes to the database. To ensure that the changes are actually committed to the database, you should use `@Modifying` along with `@Query` to explicitly inform Spring Data JPA that this method performs a database modification, and the changes should be flushed to the database.
+
 ---
 ## Multiple Data Source in Spring Boot
 ![image](https://user-images.githubusercontent.com/69948118/224540691-999a5fea-7b41-4887-9bf0-b5bbe4ff8eca.png)
