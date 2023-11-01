@@ -222,7 +222,60 @@ public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T
 ```
 ---
 - https://www.youtube.com/watch?v=b7Pev6i8fso&list=PLyHJZXNdCXsdC-p2186C6NO4FpadnCC_q&index=8&ab_channel=CodeDecode
+---
+## @Modifying 
+`@Modifying` and `@Transactional` are both annotations used in Spring Data JPA, but they serve different purposes.
 
+**@Modifying:**
+
+`@Modifying` is used in Spring Data JPA to indicate that a method is intended to modify the database. It is often used in conjunction with a custom query method or a JPQL (Java Persistence Query Language) query method in a repository interface. When you annotate a method with `@Modifying`, Spring Data JPA understands that this method is not just for querying data but for performing updates, inserts, or deletes. 
+
+Here's an example:
+
+```java
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    
+    @Modifying
+    @Query("UPDATE User u SET u.active = true WHERE u.id = :userId")
+    void activateUser(@Param("userId") Long userId);
+}
+```
+
+In this example, the `activateUser` method is annotated with `@Modifying`, and it uses a JPQL query to update a user's `active` status in the database. The method will modify data in the database, and the `@Modifying` annotation indicates this to Spring Data JPA.
+
+**@Transactional:**
+
+`@Transactional` is a more general annotation used for managing transactions in Spring. It can be applied to a method or class to specify that the annotated method or all methods in the annotated class should be executed within a transaction. A transaction ensures that a series of database operations are atomic, consistent, and isolated.
+
+Here's an example:
+
+```java
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Transactional
+    public void activateUser(Long userId) {
+        userRepository.activateUser(userId);
+        // Other database operations or business logic can go here
+    }
+}
+```
+
+In this example, the `activateUser` method of the `UserService` class is annotated with `@Transactional`. This means that all database operations, including the call to `userRepository.activateUser(userId)`, will be executed within a single transaction. If any part of the transaction fails, all changes will be rolled back, ensuring data consistency.
+
+**When to Use Which:**
+
+- Use `@Modifying` when you have a repository method that directly modifies the database, such as update or delete operations.
+
+- Use `@Transactional` when you want to manage transactions around a set of operations, which may include multiple database operations and other business logic. `@Transactional` ensures that the entire set of operations is atomic.
+
+In some cases, you might use both annotations together. For example, you could have a service method annotated with `@Transactional` that calls a repository method annotated with `@Modifying` to update data and manage the transaction around it.
+
+Remember that `@Transactional` can also be used at the class level, so all methods within the class will have a transaction applied, whereas `@Modifying` is specific to individual methods that perform write operations.
 ---
 ## Multiple Data Source in Spring Boot
 ![image](https://user-images.githubusercontent.com/69948118/224540691-999a5fea-7b41-4887-9bf0-b5bbe4ff8eca.png)
