@@ -288,7 +288,7 @@ In this example, the `activateUser` method of the `UserService` class is annotat
 
 **When to Use Which:**
 
-- Use `@Modifying` when you have a repository method that directly modifies the database, such as update or delete operations.
+- Use `@Modifying` when you have a repository method that directly modifies the database, such as update or delete operations without using the default `save()` method provided by `curdrepository`
 
 - Use `@Transactional` when you want to manage transactions around a set of operations, which may include multiple database operations and other business logic. `@Transactional` ensures that the entire set of operations is atomic.
 
