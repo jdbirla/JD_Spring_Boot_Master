@@ -153,6 +153,12 @@ UserRespository userRepository;
 - Another way is to extend the RunTimeException and we don’t need to specify rollbackFor attribute
 
 #### Transaction Isolation
+-  Isolation level controls how the data is isolated between different transactions. The isolation levels are:
+   - READ UNCOMMITTED: A transaction can read data that has not been committed by other transactions. This is the lowest level of isolation.
+   - READ COMMITTED: A transaction can only read data that has been committed by other transactions. This is a higher level of isolation.
+   - REPEATABLE READ: A transaction can read data that has been committed by other transactions, but other transactions cannot modify or insert data that the current transaction has read.
+   - SERIALIZABLE: A transaction can read data that has been committed by other transactions, and other transactions cannot modify or insert data that the current transaction has read. Additionally, no two transactions can read or write data at the same time. This is the highest level of isolation.
+
 - Transaction Isolation defines the database state when two transactions concurrently act on the same database entity. It involves locking of database records. So it describes the behaviour or state of the database when one transaction is working on database entity and then some other concurrent transaction tries to simultaneously access/edit the same database entity.
 - Dirty Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A modifies a record but not commits it. Transaction B reads this record but then Transaction A again rollbacks the changes for the record and commits it. So Transaction B has a wrong value.
 - Non-Repeatable Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A reads some records. Transaction B modifies these records before transaction A has been committed. So if Transaction A again reads these records they will be different. So same select statements result in different existing records.
