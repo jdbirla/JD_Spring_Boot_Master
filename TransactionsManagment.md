@@ -325,7 +325,80 @@ In summary, without the `@Modifying` annotation, the update query will not have 
 ![image](https://user-images.githubusercontent.com/69948118/224542049-04c9d423-adc5-4f28-b181-0fcb3815a71b.png)
 ![image](https://user-images.githubusercontent.com/69948118/224542091-0216b620-6b2f-424d-8632-84008576c740.png)
 
+---
+## Spring Boot transaction management
+In a Spring Boot project, if you don't explicitly use `@Transactional` annotations on your methods, Spring Boot still provides transaction management through the default settings and configurations provided by the Spring framework. This default behavior relies on the underlying Spring framework's support for declarative transaction management.
 
+Here's an explanation of how transaction management works in a Spring Boot project without explicit `@Transactional` annotations:
 
+1. **Declarative Transaction Management:**
+   - Spring supports declarative transaction management, where you can define transactional behavior using annotations or XML configurations.
+   - In the absence of explicit `@Transactional` annotations, Spring Boot relies on the default transaction management settings defined in the Spring framework.
 
+2. **Default Propagation and Isolation:**
+   - Spring Boot uses default propagation behavior (e.g., `Propagation.REQUIRED`) and isolation level (e.g., `Isolation.DEFAULT`) for transactions if not explicitly specified.
+   - These defaults ensure that methods run within a transaction, and if a transactional context already exists, the method will join the existing transaction; otherwise, a new transaction will be created.
+
+3. **Rollback Rules:**
+   - By default, a runtime exception (unchecked exception) triggers a rollback of the transaction. Checked exceptions do not trigger automatic rollback unless specified.
+   - You can customize rollback behavior by using the `@Transactional(rollbackFor = Exception.class)` annotation.
+
+4. **TransactionManager and DataSource Configuration:**
+   - Spring Boot automatically configures a `DataSource` bean if a suitable one is found in the classpath. The `DataSource` provides the connection to the database.
+   - Spring Boot also configures a `PlatformTransactionManager` bean, typically an instance of `DataSourceTransactionManager`.
+   - These configurations can be further customized in the `application.properties` or `application.yml` files.
+
+5. **Transaction Interceptors:**
+   - Spring Boot uses AOP (Aspect-Oriented Programming) to intercept method calls annotated with `@Transactional`.
+   - When a method annotated with `@Transactional` is called, a transactional aspect is applied, and it begins/commits or rolls back the transaction as needed.
+
+6. **Transaction Proxying:**
+   - Spring Boot creates proxy objects around your Spring beans (classes annotated with `@Service`, `@Repository`, etc.).
+   - These proxy objects intercept method calls and apply transactional behavior when necessary.
+
+7. **@EnableTransactionManagement:**
+   - In a Spring Boot project, `@EnableTransactionManagement` annotation is often included in the main application class or a configuration class. However, it's not mandatory, as Spring Boot enables transaction management by default.
+
+Here's a simple example to illustrate the default transaction management in a Spring Boot project:
+
+```java
+@Service
+public class MyService {
+
+    @Autowired
+    private MyRepository myRepository;
+
+    public void performTransactionalOperation() {
+        // This method runs within a transaction due to the default behavior.
+        // Changes made to the database will be committed if this method completes successfully.
+        myRepository.saveEntity(new MyEntity());
+    }
+}
+```
+
+In summary, Spring Boot provides default transaction management based on the underlying Spring framework. If you don't explicitly use `@Transactional` annotations, the framework uses default settings for transaction propagation, isolation, rollback rules, and other aspects. You can further customize these settings through properties in the `application.properties` or `application.yml` files if needed.
+
+Spring Boot relies on various components from the Spring Framework to implement transaction management. Below are some of the key classes and annotations used internally for transaction management in Spring Boot:
+
+1. **`@Transactional` Annotation:**
+   - The `@Transactional` annotation is used at the method level to specify that a method should run within a transactional context. It can be applied to service methods, DAO methods, or any other methods that interact with the database.
+
+2. **`TransactionInterceptor`:**
+   - The `TransactionInterceptor` is part of the Spring AOP framework and is responsible for intercepting method calls annotated with `@Transactional`. It applies the necessary transactional behavior, such as beginning, committing, or rolling back transactions.
+
+3. **`PlatformTransactionManager`:**
+   - The `PlatformTransactionManager` is an interface in the Spring Framework that defines the methods required for transaction management. In Spring Boot, the default implementation is often `DataSourceTransactionManager` when working with a JDBC DataSource.
+
+4. **`ProxyTransactionManagementConfiguration`:**
+   - The `ProxyTransactionManagementConfiguration` class is part of the Spring Framework's configuration for transaction management using proxies. It configures the necessary beans, such as the `TransactionInterceptor` and `PlatformTransactionManager`, to enable transaction management.
+
+5. **`TransactionAspectSupport`:**
+   - The `TransactionAspectSupport` class provides support for managing transactions within aspects. It contains methods for beginning, committing, and rolling back transactions.
+
+6. **`TransactionSynchronizationManager`:**
+   - The `TransactionSynchronizationManager` is a central helper class that manages transaction synchronization for the current thread. It keeps track of the current transaction status and registered synchronization callbacks.
+
+These classes work together to provide declarative transaction management in Spring Boot. When a method annotated with `@Transactional` is called, the `TransactionInterceptor` intercepts the method invocation, and based on the configured `PlatformTransactionManager`, it manages the transaction lifecycle, including beginning, committing, or rolling back transactions.
+
+While these classes are essential components of the transaction management system, it's important to note that the Spring Framework's transaction management is quite modular and extensible. Depending on the configuration and environment, Spring Boot might use additional classes or different implementations for specific scenarios, such as JTA-based transactions or other transaction manager implementations. The classes mentioned here represent the core components used for the default case with JDBC transactions.
 
