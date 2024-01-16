@@ -203,8 +203,8 @@ This is an interesting concept. Remember how I mentioned above that all the para
 But that can slow things down quite a lot, especially when the transactions involve multiple steps or updates.
 
 So there are two ways of going ahead with it.
-**optimistic locking** - One approach is to let the processes update the same records in parallel. Only when one process successfully commits its changes, the other process is told that there exists a conflict due to which the other process will have to attempt the transaction again.
-**pessimistic locking** - Another approach is to lock the row as soon as one process attempts to modify it (or delete it) and ask the other processes to wait before doing anything.
+- **optimistic locking** - One approach is to let the processes update the same records in parallel. Only when one process successfully commits its changes, the other process is told that there exists a conflict due to which the other process will have to attempt the transaction again.
+- **pessimistic locking** - Another approach is to lock the row as soon as one process attempts to modify it (or delete it) and ask the other processes to wait before doing anything.
 
 ### 2. Programmatic Transaction Management
 - the Programmatic Transaction Management where developers draw the transaction boundaries inside the service class methods.
