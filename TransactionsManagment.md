@@ -192,6 +192,20 @@ UserRespository userRepository;
 
 ![image](https://user-images.githubusercontent.com/69948118/223618179-5ec21308-a606-4a7d-8277-804ec16436b9.png)
 
+### Lock in DBMS
+- Shared Lock: Allows multiple transactions to read a resource simultaneously but prevents any of them from writing to it.
+- Exclusive Lock: Grants exclusive access to a resource, preventing other transactions from either reading or writing to it.
+- Read Lock: Similar to a shared lock, it allows multiple transactions to read a resource simultaneously but prevents any of them from acquiring a write lock.
+- Write Lock: Grants exclusive access to a resource for writing, preventing other transactions from both reading and writing to it.
+#### Optimistic vs pessimistic locking
+This is an interesting concept. Remember how I mentioned above that all the parallel processes that want to do database transactions will have to sequentially execute them in order to maintain data integrity?
+
+But that can slow things down quite a lot, especially when the transactions involve multiple steps or updates.
+
+So there are two ways of going ahead with it.
+**optimistic locking** - One approach is to let the processes update the same records in parallel. Only when one process successfully commits its changes, the other process is told that there exists a conflict due to which the other process will have to attempt the transaction again.
+**pessimistic locking** - Another approach is to lock the row as soon as one process attempts to modify it (or delete it) and ask the other processes to wait before doing anything.
+
 ### 2. Programmatic Transaction Management
 - the Programmatic Transaction Management where developers draw the transaction boundaries inside the service class methods.
 - Let us consider the following code snippet. We make some DB calls, then we call external API and then again we make DB calls and then we make an internal API Call.
