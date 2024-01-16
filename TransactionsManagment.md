@@ -166,16 +166,29 @@ UserRespository userRepository;
 - Another way is to extend the RunTimeException and we don’t need to specify rollbackFor attribute
 
 #### Transaction Isolation
--  Isolation level controls how the data is isolated between different transactions. The isolation levels are:
-   - READ UNCOMMITTED: A transaction can read data that has not been committed by other transactions. This is the lowest level of isolation.
-   - READ COMMITTED: A transaction can only read data that has been committed by other transactions. This is a higher level of isolation.
-   - REPEATABLE READ: A transaction can read data that has been committed by other transactions, but other transactions cannot modify or insert data that the current transaction has read.
-   - SERIALIZABLE: A transaction can read data that has been committed by other transactions, and other transactions cannot modify or insert data that the current transaction has read. Additionally, no two transactions can read or write data at the same time. This is the highest level of isolation.
-
+- As we know, in order to maintain consistency in a database, it follows ACID properties. Among these four properties (Atomicity, Consistency, Isolation, and Durability) Isolation determines how transaction integrity is visible to other users and systems. It means that a transaction should take place in a system in such a way that it is the only transaction that is accessing the resources in a database system. 
+- Isolation levels define the degree to which a transaction must be isolated from the data modifications made by any other transaction in the database system. A transaction isolation level is defined by the following phenomena: 
 - Transaction Isolation defines the database state when two transactions concurrently act on the same database entity. It involves locking of database records. So it describes the behaviour or state of the database when one transaction is working on database entity and then some other concurrent transaction tries to simultaneously access/edit the same database entity.
-- Dirty Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A modifies a record but not commits it. Transaction B reads this record but then Transaction A again rollbacks the changes for the record and commits it. So Transaction B has a wrong value.
-- Non-Repeatable Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A reads some records. Transaction B modifies these records before transaction A has been committed. So if Transaction A again reads these records they will be different. So same select statements result in different existing records.
-- Phantom Reads - Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A reads some records. Transaction B adds more such records before transaction A has been committed. So if Transaction A again reads there will be more records than the previous select statement. So same select statements result in different number records to be displayed as new records also get added.
+- **Dirty Reads** -
+- A Dirty read is a situation when a transaction reads data that has not yet been committed. For example, Let’s say transaction 1 updates a row and leaves it uncommitted, meanwhile, Transaction 2 reads the updated row. If transaction 1 rolls back the change, transaction 2 will have read data that is considered never to have existed.
+- Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A modifies a record but not commits it. Transaction B reads this record but then Transaction A again rollbacks the changes for the record and commits it. So Transaction B has a wrong value.
+- **Non-Repeatable Reads** - Non Repeatable read occurs when a transaction reads the same row twice and gets a different value each time. For example, suppose transaction T1 reads data. Due to concurrency, another transaction T2 updates the same data and commit, Now if transaction T1 rereads the same data, it will retrieve a different value
+- **Phantom Reads** -
+- Phantom Read occurs when two same queries are executed, but the rows retrieved by the two, are different. For example, suppose transaction T1 retrieves a set of rows that satisfy some search criteria. Now, Transaction T2 generates some new rows that match the search criteria for transaction T1. If transaction T1 re-executes the statement that reads the rows, it gets a different set of rows this time.
+-   Suppose two transactions - Transaction A and Transaction B are running concurrently. If Transaction A reads some records. Transaction B adds more such records before transaction A has been committed. So if Transaction A again reads there will be more records than the previous select statement. So same select statements result in different number records to be displayed as new records also get added.
+  
+- Based on these phenomena, The SQL standard defines four isolation levels:  
+   - **READ UNCOMMITTED**: Read Uncommitted is the lowest isolation level. In this level, one transaction may read not yet committed changes made by other transactions, thereby allowing dirty reads. At this level, transactions are not isolated from each other. This can result in dirty reads, non-repeatable reads, and phantom reads.
+   - **READ COMMITTED**:  This isolation level guarantees that any data read is committed at the moment it is read. Thus it does not allow dirty read. The transaction holds a read or write lock on the current row, and thus prevents other transactions from reading, updating, or deleting it.
+   -  In this isolation level, a transaction can only see changes made by other committed transactions. This eliminates dirty reads but can still result in non-repeatable reads and phantom reads.
+   - **REPEATABLE READ**: This is the most restrictive isolation level. The transaction holds read locks on all rows it references and writes locks on referenced rows for update and delete actions. Since other transactions cannot read, update or delete these rows, consequently it avoids non-repeatable read.
+   - This isolation level guarantees that a transaction will see the same data throughout its duration, even if other transactions commit changes to the data. However, phantom reads are still possible.
+   - **SERIALIZABLE**:
+   - This is the highest isolation level. A serializable execution is guaranteed to be serializable. Serializable execution is defined to be an execution of operations in which concurrently executing transactions appears to be serially executing.
+   - This is the highest isolation level where a transaction is executed as if it were the only transaction in the system. All transactions must be executed sequentially, which ensures that there are no dirty reads, non-repeatable reads, or phantom reads.
+- The choice of isolation level depends on the specific requirements of the application. Higher isolation levels offer stronger data consistency but can also result in longer lock times and increased contention, leading to decreased concurrency and performance. Lower isolation levels provide more concurrency but can result in data inconsistencies.
+
+![image](https://github.com/jdbirla/JD_Spring_Boot_Master/assets/69948118/ca7df2d5-233f-4534-b3cb-66574a5a8a23)
 
 ![image](https://user-images.githubusercontent.com/69948118/223618179-5ec21308-a606-4a7d-8277-804ec16436b9.png)
 
